@@ -4,14 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Yecayork - Tienda</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Cambié Tailwind CDN por una versión estable -->
+  <script src="https://cdn.tailwindcss.com/3.3.0"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="/static/styles.css">
+  <!-- Quita esta línea si no tienes styles.css -->
+  <!-- <link rel="stylesheet" href="/static/styles.css"> -->
 
   <!-- Supabase Auth -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // Reemplaza con tus valores reales de Supabase (Project URL y anon public key desde Settings → API)
     const SUPABASE_URL = 'https://licmwvbpjnzmkxjevxsj.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxpY213dmJwam56bWt4amV2eHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUwNjM5NTIsImV4cCI6MjA4MDYzOTk1Mn0.nzKRXLDD8HG_asPvUzga8J8zcZx9ikptoB32Lbg1CBY';
     
@@ -38,6 +39,9 @@
       .product-card {
         margin-bottom: 1rem;
       }
+      .hidden {
+        display: none !important;
+      }
     }
     
     @media (max-width: 480px) {
@@ -51,6 +55,17 @@
         padding: 0.5rem 1rem !important;
         font-size: 0.9rem !important;
       }
+    }
+    
+    /* Asegurar que hidden funcione */
+    .hidden {
+      display: none;
+    }
+    
+    /* Imágenes de respaldo si no cargan */
+    .product-img {
+      background-color: #f3f4f6;
+      min-height: 150px;
     }
   </style>
 </head>
@@ -108,11 +123,11 @@
   <!-- Overlay para menú móvil -->
   <div id="menuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden"></div>
 
-  <!-- INICIO -->
+  <!-- INICIO - ESTA SECCIÓN DEBE ESTAR VISIBLE AL PRINCIPIO -->
   <section id="inicio" class="p-4 md:p-6">
     <!-- BANNER PRINCIPAL -->
-    <div class="w-full h-48 md:h-72 lg:h-96 rounded-2xl md:rounded-3xl overflow-hidden mb-6 md:mb-8">
-      <img src="/static/img/bannerprincipal.jpg" class="w-full h-full object-cover">
+    <div class="w-full h-48 md:h-72 lg:h-96 rounded-2xl md:rounded-3xl overflow-hidden mb-6 md:mb-8 product-img">
+      <img src="img/bannerprincipal.jpg" class="w-full h-full object-cover" alt="Banner Yecayork" onerror="this.style.display='none'">
     </div>
 
     <!-- ESPACIO PARA TEXTO -->
@@ -128,8 +143,8 @@
     <!-- 4 IMÁGENES CON DESCRIPCIÓN -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mt-8 md:mt-16 px-2">
       <div class="flex flex-col items-center product-card">
-        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4">
-          <img src="/static/img/corte1.jpg" class="w-full h-full object-cover">
+        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4 product-img">
+          <img src="img/corte1.jpg" class="w-full h-full object-cover" alt="Corte 1" onerror="this.style.display='none'">
         </div>
         <div class="text-center">
           <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Corte Especial 1</h3>
@@ -140,8 +155,8 @@
       </div>
 
       <div class="flex flex-col items-center product-card">
-        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4">
-          <img src="/static/img/corte2.jpg" class="w-full h-full object-cover">
+        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4 product-img">
+          <img src="img/corte2.jpg" class="w-full h-full object-cover" alt="Corte 2" onerror="this.style.display='none'">
         </div>
         <div class="text-center">
           <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Corte Especial 2</h3>
@@ -152,8 +167,8 @@
       </div>
 
       <div class="flex flex-col items-center product-card">
-        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4">
-          <img src="/static/img/corte3.jpg" class="w-full h-full object-cover">
+        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4 product-img">
+          <img src="img/corte3.jpg" class="w-full h-full object-cover" alt="Corte 3" onerror="this.style.display='none'">
         </div>
         <div class="text-center">
           <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Corte Especial 3</h3>
@@ -164,8 +179,8 @@
       </div>
 
       <div class="flex flex-col items-center product-card">
-        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4">
-          <img src="/static/img/corte4.jpg" class="w-full h-full object-cover">
+        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4 product-img">
+          <img src="img/corte4.jpg" class="w-full h-full object-cover" alt="Corte 4" onerror="this.style.display='none'">
         </div>
         <div class="text-center">
           <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Corte Especial 4</h3>
@@ -177,16 +192,15 @@
     </div>
   </section>
 
-  <!-- CORTES (SECCIÓN QUE FALTABA) -->
+  <!-- CORTES -->
   <section id="cortes" class="p-4 md:p-6 hidden">
     <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-center heading-responsive">Cortes de Carne</h2>
     
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 lg:gap-6 max-w-6xl mx-auto">
-      
       <!-- Producto 1 -->
       <div class="bg-white border-2 border-black p-3 md:p-4 flex flex-col items-center rounded-xl md:rounded-2xl product-card">
-        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3">
-          <img src="/static/img/corte1.jpg" class="w-full h-full object-cover">
+        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3 product-img">
+          <img src="img/corte1.jpg" class="w-full h-full object-cover" alt="Cecina de res" onerror="this.style.display='none'">
         </div>
         <h3 class="font-bold text-base md:text-lg lg:text-xl mt-1 md:mt-2 text-center">Corte Cecina de res</h3>
         <p class="text-xs md:text-sm text-gray-600 text-center mb-2 md:mb-3 text-responsive">
@@ -201,8 +215,8 @@
 
       <!-- Producto 2 -->
       <div class="bg-white border-2 border-black p-3 md:p-4 flex flex-col items-center rounded-xl md:rounded-2xl product-card">
-        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3">
-          <img src="/static/img/corte2.jpg" class="w-full h-full object-cover">
+        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3 product-img">
+          <img src="img/corte2.jpg" class="w-full h-full object-cover" alt="Longaniza" onerror="this.style.display='none'">
         </div>
         <h3 class="font-bold text-base md:text-lg lg:text-xl mt-1 md:mt-2 text-center">Corte Longaniza</h3>
         <p class="text-xs md:text-sm text-gray-600 text-center mb-2 md:mb-3 text-responsive">
@@ -217,8 +231,8 @@
 
       <!-- Producto 3 -->
       <div class="bg-white border-2 border-black p-3 md:p-4 flex flex-col items-center rounded-xl md:rounded-2xl product-card">
-        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3">
-          <img src="/static/img/corte3.jpg" class="w-full h-full object-cover">
+        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3 product-img">
+          <img src="img/corte3.jpg" class="w-full h-full object-cover" alt="Cecina enchilada" onerror="this.style.display='none'">
         </div>
         <h3 class="font-bold text-base md:text-lg lg:text-xl mt-1 md:mt-2 text-center">Corte Cecina enchilada</h3>
         <p class="text-xs md:text-sm text-gray-600 text-center mb-2 md:mb-3 text-responsive">
@@ -233,8 +247,8 @@
 
       <!-- Producto 4 -->
       <div class="bg-white border-2 border-black p-3 md:p-4 flex flex-col items-center rounded-xl md:rounded-2xl product-card">
-        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3">
-          <img src="/static/img/corte4.jpg" class="w-full h-full object-cover">
+        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3 product-img">
+          <img src="img/corte4.jpg" class="w-full h-full object-cover" alt="Gorditos" onerror="this.style.display='none'">
         </div>
         <h3 class="font-bold text-base md:text-lg lg:text-xl mt-1 md:mt-2 text-center">Corte Gorditos o Gracitas</h3>
         <p class="text-xs md:text-sm text-gray-600 text-center mb-2 md:mb-3 text-responsive">
@@ -249,7 +263,7 @@
     </div>
   </section>
 
-  <!-- CARRITO (SECCIÓN QUE FALTABA) -->
+  <!-- CARRITO -->
   <section id="carrito" class="p-4 md:p-6 hidden">
     <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Carrito</h2>
     <div id="cartContainer" class="space-y-4">
@@ -262,11 +276,10 @@
     </div>
   </section>
 
-  <!-- PAGO (SECCIÓN QUE FALTABA) -->
+  <!-- PAGO -->
   <section id="pago" class="p-4 md:p-6 hidden">
     <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Proceso de Pago</h2>
     <div class="bg-white p-4 md:p-6 rounded-xl shadow-md max-w-2xl mx-auto border-2 border-black">
-      
       <div class="mb-4 md:mb-6">
         <h3 class="text-lg md:text-xl font-bold mb-3">Forma de Pago</h3>
         <div class="flex flex-col sm:flex-row gap-3 md:gap-4 mb-4">
@@ -359,12 +372,12 @@
     </div>
   </section>
 
-  <!-- CONTACTO (SECCIÓN QUE FALTABA) -->
+  <!-- CONTACTO -->
   <section id="contacto" class="p-4 md:p-6 hidden">
     <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Contacto</h2>
     
-    <div class="w-full h-48 md:h-64 lg:h-80 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-6 md:mb-8">
-      <img src="/static/img/iglesia.jpg" class="w-full h-full object-cover">
+    <div class="w-full h-48 md:h-64 lg:h-80 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-6 md:mb-8 product-img">
+      <img src="img/iglesia.jpg" class="w-full h-full object-cover" alt="Iglesia" onerror="this.style.display='none'">
     </div>
     
     <div class="max-w-4xl mx-auto px-2">
@@ -387,11 +400,10 @@
     </div>
   </section>
 
-  <!-- INICIAR SESIÓN (SECCIÓN QUE FALTABA) -->
+  <!-- LOGIN -->
   <section id="login" class="p-4 md:p-6 hidden">
     <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Iniciar Sesión</h2>
-
-    <form id="loginForm" class="bg-white p-4 md:p-6 rounded-xl shadow-md max-w-md mx-auto border-2 border-black rounded-xl md:rounded-2xl">
+    <form id="loginForm" class="bg-white p-4 md:p-6 rounded-xl shadow-md max-w-md mx-auto border-2 border-black">
       <label class="block mb-2 font-semibold text-sm md:text-base">Correo</label>
       <input id="login_correo" type="email" class="w-full border-2 border-black p-2 md:p-3 mb-3 md:mb-4 rounded text-sm md:text-base" placeholder="correo@example.com">
       <label class="block mb-2 font-semibold text-sm md:text-base">Contraseña</label>
@@ -401,11 +413,10 @@
     </form>
   </section>
 
-  <!-- REGISTRO (SECCIÓN QUE FALTABA) -->
+  <!-- REGISTRO -->
   <section id="registro" class="p-4 md:p-6 hidden">
     <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Registro</h2>
-
-    <form id="registerForm" class="bg-white p-4 md:p-6 rounded-xl shadow-md max-w-md mx-auto border-2 border-black rounded-xl md:rounded-2xl">
+    <form id="registerForm" class="bg-white p-4 md:p-6 rounded-xl shadow-md max-w-md mx-auto border-2 border-black">
       <label class="block mb-2 font-semibold text-sm md:text-base">Nombre</label>
       <input id="reg_nombre" type="text" class="w-full border-2 border-black p-2 md:p-3 mb-3 md:mb-4 rounded text-sm md:text-base" placeholder="Tu nombre">
       <label class="block mb-2 font-semibold text-sm md:text-base">Correo</label>
@@ -418,12 +429,68 @@
   </section>
 
 <script>
-  /* ----------------------------- MENÚ MÓVIL ----------------------------- */
+  // ----------------------------- CONFIGURACIÓN INICIAL -----------------------------
+  console.log('🚀 Inicializando Yecayork...');
+  
+  // Variables globales
+  let CART = [];
+  
+  // Datos de productos
+  const productosFijos = [
+    { id: 1, nombre: "Corte Cecina de res", precio: 360, imagen: "img/corte1.jpg" },
+    { id: 2, nombre: "Corte Longaniza", precio: 160, imagen: "img/corte2.jpg" },
+    { id: 3, nombre: "Corte Cecina enchilada", precio: 240, imagen: "img/corte3.jpg" },
+    { id: 4, nombre: "Corte Gorditos o Gracitas", precio: 120, imagen: "img/corte4.jpg" }
+  ];
+
+  // ----------------------------- NAVEGACIÓN -----------------------------
+  const sections = {
+    inicio: document.getElementById('inicio'),
+    cortes: document.getElementById('cortes'),
+    carrito: document.getElementById('carrito'),
+    pago: document.getElementById('pago'),
+    contacto: document.getElementById('contacto'),
+    login: document.getElementById('login'),
+    registro: document.getElementById('registro')
+  };
+
+  // Función para mostrar sección
+  function showSection(id) {
+    console.log('Mostrando sección:', id);
+    
+    // Ocultar todas las secciones
+    Object.keys(sections).forEach(key => {
+      const section = sections[key];
+      if (section) {
+        section.classList.add('hidden');
+      } else {
+        console.error('❌ Sección no encontrada:', key);
+      }
+    });
+    
+    // Mostrar la sección solicitada
+    if (sections[id]) {
+      sections[id].classList.remove('hidden');
+    } else {
+      console.error('❌ Sección no encontrada:', id);
+      // Por defecto mostrar inicio
+      if (sections.inicio) {
+        sections.inicio.classList.remove('hidden');
+      }
+    }
+    
+    // Cerrar menú móvil si está abierto
+    if (mobileMenu) {
+      mobileMenu.classList.remove('open');
+      menuOverlay.classList.add('hidden');
+    }
+  }
+
+  // ----------------------------- MENÚ MÓVIL -----------------------------
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const closeMenuBtn = document.getElementById('closeMenuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
   const menuOverlay = document.getElementById('menuOverlay');
-  const mobileNavLinks = document.querySelectorAll('#mobileMenu .nav-link');
 
   if (mobileMenuBtn) {
     mobileMenuBtn.addEventListener('click', () => {
@@ -446,72 +513,29 @@
     });
   }
 
-  // Cerrar menú al hacer clic en enlace
-  mobileNavLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      menuOverlay.classList.add('hidden');
-    });
-  });
-
-  /* ----------------------------- NAV SECTIONS ----------------------------- */
-  const sections = {
-    inicio: document.getElementById('inicio'),
-    cortes: document.getElementById('cortes'),
-    carrito: document.getElementById('carrito'),
-    pago: document.getElementById('pago'),
-    contacto: document.getElementById('contacto'),
-    login: document.getElementById('login'),
-    registro: document.getElementById('registro')
-  };
-
-  function showSection(id){
-    Object.values(sections).forEach(s => s.classList.add('hidden'));
-    if (sections[id]) {
-      sections[id].classList.remove('hidden');
-    }
-    // Cerrar menú móvil si está abierto
-    if (mobileMenu) {
-      mobileMenu.classList.remove('open');
-      menuOverlay.classList.add('hidden');
-    }
-  }
-
-  document.querySelectorAll('.nav-link').forEach(link=>{
-    link.addEventListener('click', e=>{
+  // ----------------------------- NAVEGACIÓN POR ENLACES -----------------------------
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', e => {
       e.preventDefault();
-      const id = link.getAttribute('href').replace('#','');
+      const id = link.getAttribute('href').replace('#', '');
       showSection(id);
       
-      // Scroll suave al principio en móviles
+      // Scroll suave en móviles
       if (window.innerWidth < 768) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
   });
 
-  showSection('inicio');
-
-  /* ----------------------------- PRODUCTOS ----------------------------- */
-  let CART = [];
-
-  // Datos fijos para los cortes
-  const productosFijos = [
-    { id: 1, nombre: "Corte Cecina de res", precio: 360, imagen: "img/corte1.jpg", descripcion: "Carne de res de las cuartos traseros..." },
-    { id: 2, nombre: "Corte Longaniza", precio: 160, imagen: "img/corte2.jpg", descripcion: "Carne molida de puerco condimentada..." },
-    { id: 3, nombre: "Corte Cecina enchilada", precio: 240, imagen: "img/corte3.jpg", descripcion: "Elaborada con la carne del cuarto trasero..." },
-    { id: 4, nombre: "Corte Gorditos o Gracitas", precio: 120, imagen: "img/corte4.jpg", descripcion: "Corte derivado de la cecina..." }
-  ];
-
-  /* ----------------------------- CARRITO ----------------------------- */
-  function addToCart(product_id, cantidad, precio_unitario){
+  // ----------------------------- CARRITO -----------------------------
+  function addToCart(product_id, cantidad, precio_unitario) {
     const idx = CART.findIndex(i => i.product_id == product_id);
-    if(idx >= 0){
+    if (idx >= 0) {
       CART[idx].cantidad += cantidad;
     } else {
       CART.push({
-        product_id: product_id, 
-        cantidad: cantidad, 
+        product_id: product_id,
+        cantidad: cantidad,
         precio_unitario: precio_unitario
       });
     }
@@ -519,25 +543,19 @@
     showNotification('Producto agregado al carrito');
   }
 
-  function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-3 md:px-4 py-2 rounded shadow-lg z-50 text-sm md:text-base';
-    notification.textContent = message;
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-      notification.remove();
-    }, 3000);
-  }
-
-  function renderCart(){
+  function renderCart() {
     const cartItems = document.getElementById('cartItems');
     const cartEmpty = document.getElementById('cartEmpty');
     const cartSummary = document.getElementById('cartSummary');
     
+    if (!cartItems || !cartEmpty || !cartSummary) {
+      console.error('❌ Elementos del carrito no encontrados');
+      return;
+    }
+    
     cartItems.innerHTML = '';
 
-    if(CART.length === 0){
+    if (CART.length === 0) {
       cartEmpty.style.display = 'block';
       cartSummary.classList.add('hidden');
       return;
@@ -550,25 +568,26 @@
 
     CART.forEach((it, index) => {
       const p = productosFijos.find(prod => prod.id == it.product_id);
-
       if (!p) return;
 
       const itemDiv = document.createElement('div');
-      itemDiv.className = 'flex flex-col sm:flex-row items-center justify-between p-3 border-b gap-2';
+      itemDiv.className = 'flex flex-col sm:flex-row items-center justify-between p-3 border-b gap-2 bg-white rounded-lg';
 
       itemDiv.innerHTML = `
         <div class="flex items-center gap-3 w-full sm:w-auto">
-          <img src="/static/${p.imagen}" class="h-12 w-12 object-cover rounded-lg">
+          <div class="h-12 w-12 bg-gray-200 rounded-lg flex items-center justify-center">
+            <span class="text-gray-500">🐮</span>
+          </div>
           <div class="flex-1">
             <div class="font-semibold text-sm md:text-base">${p.nombre}</div>
-            <div class="text-xs md:text-sm">Precio unitario: $${it.precio_unitario}</div>
+            <div class="text-xs md:text-sm">Precio: $${it.precio_unitario}/kg</div>
           </div>
         </div>
         <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
           <div class="flex items-center gap-1">
-            <button class="decBtn px-2 md:px-3 py-1 border rounded text-sm" data-idx="${index}">-</button>
-            <div class="px-2">${it.cantidad}</div>
-            <button class="incBtn px-2 md:px-3 py-1 border rounded text-sm" data-idx="${index}">+</button>
+            <button class="decBtn px-2 md:px-3 py-1 border rounded text-sm bg-gray-200" data-idx="${index}">-</button>
+            <div class="px-2 font-medium">${it.cantidad}</div>
+            <button class="incBtn px-2 md:px-3 py-1 border rounded text-sm bg-gray-200" data-idx="${index}">+</button>
           </div>
           <div class="ml-2 md:ml-4 font-semibold text-sm md:text-base">$${(it.cantidad * it.precio_unitario).toFixed(2)}</div>
         </div>
@@ -580,40 +599,39 @@
 
     document.getElementById('cartTotal').textContent = total.toFixed(2);
 
-    document.querySelectorAll('.incBtn').forEach(b=>{
-      b.addEventListener('click', ()=>{
+    // Event listeners para botones de cantidad
+    document.querySelectorAll('.incBtn').forEach(b => {
+      b.addEventListener('click', () => {
         const i = parseInt(b.getAttribute('data-idx'));
         CART[i].cantidad++;
         renderCart();
       });
     });
 
-    document.querySelectorAll('.decBtn').forEach(b=>{
-      b.addEventListener('click', ()=>{
+    document.querySelectorAll('.decBtn').forEach(b => {
+      b.addEventListener('click', () => {
         const i = parseInt(b.getAttribute('data-idx'));
         CART[i].cantidad--;
-        if(CART[i].cantidad <= 0) CART.splice(i,1);
+        if (CART[i].cantidad <= 0) CART.splice(i, 1);
         renderCart();
       });
     });
   }
 
-  // Agregar event listeners a los botones de agregar al carrito
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.addBtn').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const id = parseInt(btn.getAttribute('data-id'));
-        const precio = parseFloat(btn.getAttribute('data-price'));
-        addToCart(id, 1, precio);
-      });
-    });
+  // ----------------------------- NOTIFICACIONES -----------------------------
+  function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50 text-sm md:text-base animate-bounce';
+    notification.textContent = message;
+    document.body.appendChild(notification);
     
-    // Verificar sesión al cargar la página usando Supabase
-    checkUserSession();
-  });
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
+  }
 
-  /* ----------------------------- PAGO ----------------------------- */
-  document.getElementById('checkoutBtn')?.addEventListener('click', ()=>{
+  // ----------------------------- PAGO -----------------------------
+  document.getElementById('checkoutBtn')?.addEventListener('click', () => {
     if (CART.length === 0) {
       alert('Tu carrito está vacío');
       return;
@@ -621,8 +639,69 @@
     showSection('pago');
   });
 
-  document.getElementById('backToCart')?.addEventListener('click', ()=>{
+  document.getElementById('backToCart')?.addEventListener('click', () => {
     showSection('carrito');
+  });
+
+  document.getElementById('confirmPayment')?.addEventListener('click', async () => {
+    const total = parseFloat(document.getElementById('cartTotal').textContent);
+    const paymentMethod = document.querySelector('input[name="payment"]:checked')?.value;
+    
+    if (!paymentMethod) {
+      alert('Por favor selecciona un método de pago');
+      return;
+    }
+    
+    if (paymentMethod !== 'oxxo') {
+      const cardNumber = document.getElementById('cardNumber').value;
+      const expMonth = document.getElementById('expMonth').value;
+      const expYear = document.getElementById('expYear').value;
+      const cvv = document.getElementById('cvv').value;
+      const cardName = document.getElementById('cardName').value;
+      
+      if (!cardNumber || !expMonth || !expYear || !cvv || !cardName) {
+        alert('Por favor completa todos los campos de la tarjeta');
+        return;
+      }
+    }
+    
+    // Verificar si el usuario está logueado
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        alert('Debes iniciar sesión para completar la compra');
+        showSection('login');
+        return;
+      }
+      
+      // Guardar pedido en Supabase
+      const { error } = await supabase
+        .from('pedidos')
+        .insert({
+          user_id: user.id,
+          items: CART,
+          total: total,
+          payment_method: paymentMethod,
+          status: 'completado'
+        });
+        
+      if (error) {
+        console.error('Error al guardar pedido:', error);
+        alert('Hubo un error al procesar tu pedido. Intenta de nuevo.');
+        return;
+      }
+      
+      alert('¡Pago realizado con éxito! Gracias por tu compra.');
+      CART = [];
+      renderCart();
+      showSection('inicio');
+      showNotification('¡Pedido realizado con éxito!');
+      
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error de conexión. Intenta de nuevo.');
+    }
   });
 
   // Cambiar método de pago
@@ -641,68 +720,12 @@
     });
   });
 
-  document.getElementById('confirmPayment')?.addEventListener('click', async ()=>{
-    const total = parseFloat(document.getElementById('cartTotal').textContent);
-    const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-    
-    // Validar campos si es tarjeta
-    if (paymentMethod !== 'oxxo') {
-      const cardNumber = document.getElementById('cardNumber').value;
-      const expMonth = document.getElementById('expMonth').value;
-      const expYear = document.getElementById('expYear').value;
-      const cvv = document.getElementById('cvv').value;
-      const cardName = document.getElementById('cardName').value;
-      
-      if (!cardNumber || !expMonth || !expYear || !cvv || !cardName) {
-        alert('Por favor completa todos los campos de la tarjeta');
-        return;
-      }
-    }
-    
-    // Simular pago exitoso
-    alert('¡Pago realizado con éxito! Gracias por tu compra.');
-    
-    // Guardar pedido en Supabase si el usuario está logueado
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (user) {
-        const { error } = await supabase
-          .from('pedidos')
-          .insert({
-            user_id: user.id,
-            items: CART,
-            total: total,
-            payment_method: paymentMethod,
-            status: 'completado'
-          });
-          
-        if (error) {
-          console.error('Error al guardar pedido:', error);
-        }
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-    
-    // Limpiar carrito
-    CART = [];
-    renderCart();
-    showSection('inicio');
-    showNotification('¡Pedido realizado con éxito!');
-  });
-
-  /* ----------------------------- SESIÓN DE USUARIO (Supabase) ----------------------------- */
+  // ----------------------------- AUTENTICACIÓN -----------------------------
   async function checkUserSession() {
     try {
       const { data: { user }, error } = await supabase.auth.getUser();
-
-      if (error) {
-        console.error('Error al verificar sesión:', error);
-        updateUserInfo(null);
-        return { logged_in: false };
-      }
-
+      if (error) throw error;
+      
       if (user) {
         const userData = {
           nombre: user.user_metadata?.nombre || user.email.split('@')[0],
@@ -712,7 +735,7 @@
         updateUserInfo(userData);
         return { logged_in: true, user: userData };
       }
-
+      
       updateUserInfo(null);
       return { logged_in: false };
     } catch (error) {
@@ -723,43 +746,40 @@
   }
 
   function updateUserInfo(userData = null) {
-    const userInfo = document.getElementById('userInfo');
-    const userName = document.getElementById('userName');
-    const mobileUserInfo = document.getElementById('mobileUserInfo');
-    const mobileUserName = document.getElementById('mobileUserName');
-    const loginMenuItem = document.getElementById('loginMenuItem');
-    const registerMenuItem = document.getElementById('registerMenuItem');
-    const mobileLoginMenuItem = document.getElementById('mobileLoginMenuItem');
-    const mobileRegisterMenuItem = document.getElementById('mobileRegisterMenuItem');
+    const elements = {
+      userInfo: document.getElementById('userInfo'),
+      userName: document.getElementById('userName'),
+      mobileUserInfo: document.getElementById('mobileUserInfo'),
+      mobileUserName: document.getElementById('mobileUserName'),
+      loginMenuItem: document.getElementById('loginMenuItem'),
+      registerMenuItem: document.getElementById('registerMenuItem'),
+      mobileLoginMenuItem: document.getElementById('mobileLoginMenuItem'),
+      mobileRegisterMenuItem: document.getElementById('mobileRegisterMenuItem')
+    };
     
     if (userData) {
-      if (userName) userName.textContent = `Hola, ${userData.nombre}`;
-      if (mobileUserName) mobileUserName.textContent = `Hola, ${userData.nombre}`;
-      if (userInfo) userInfo.classList.remove('hidden');
-      if (mobileUserInfo) mobileUserInfo.classList.remove('hidden');
-      if (loginMenuItem) loginMenuItem.classList.add('hidden');
-      if (registerMenuItem) registerMenuItem.classList.add('hidden');
-      if (mobileLoginMenuItem) mobileLoginMenuItem.classList.add('hidden');
-      if (mobileRegisterMenuItem) mobileRegisterMenuItem.classList.add('hidden');
+      if (elements.userName) elements.userName.textContent = `Hola, ${userData.nombre}`;
+      if (elements.mobileUserName) elements.mobileUserName.textContent = `Hola, ${userData.nombre}`;
+      if (elements.userInfo) elements.userInfo.classList.remove('hidden');
+      if (elements.mobileUserInfo) elements.mobileUserInfo.classList.remove('hidden');
+      if (elements.loginMenuItem) elements.loginMenuItem.classList.add('hidden');
+      if (elements.registerMenuItem) elements.registerMenuItem.classList.add('hidden');
+      if (elements.mobileLoginMenuItem) elements.mobileLoginMenuItem.classList.add('hidden');
+      if (elements.mobileRegisterMenuItem) elements.mobileRegisterMenuItem.classList.add('hidden');
     } else {
-      if (userInfo) userInfo.classList.add('hidden');
-      if (mobileUserInfo) mobileUserInfo.classList.add('hidden');
-      if (loginMenuItem) loginMenuItem.classList.remove('hidden');
-      if (registerMenuItem) registerMenuItem.classList.remove('hidden');
-      if (mobileLoginMenuItem) mobileLoginMenuItem.classList.remove('hidden');
-      if (mobileRegisterMenuItem) mobileRegisterMenuItem.classList.remove('hidden');
+      if (elements.userInfo) elements.userInfo.classList.add('hidden');
+      if (elements.mobileUserInfo) elements.mobileUserInfo.classList.add('hidden');
+      if (elements.loginMenuItem) elements.loginMenuItem.classList.remove('hidden');
+      if (elements.registerMenuItem) elements.registerMenuItem.classList.remove('hidden');
+      if (elements.mobileLoginMenuItem) elements.mobileLoginMenuItem.classList.remove('hidden');
+      if (elements.mobileRegisterMenuItem) elements.mobileRegisterMenuItem.classList.remove('hidden');
     }
   }
 
-  async function logout(){ 
+  async function logout() {
     try {
       const { error } = await supabase.auth.signOut();
-      
-      if (error) {
-        console.error('Error al cerrar sesión:', error);
-        showNotification('Error al cerrar sesión');
-        return;
-      }
+      if (error) throw error;
       
       updateUserInfo(null);
       showSection('inicio');
@@ -779,14 +799,19 @@
   document.getElementById('logoutBtn')?.addEventListener('click', logout);
   document.getElementById('mobileLogoutBtn')?.addEventListener('click', logout);
 
-  /* ----------------------------- LOGIN CON SUPABASE ----------------------------- */
-  document.getElementById('loginForm')?.addEventListener('submit', async (e)=>{
+  // ----------------------------- LOGIN -----------------------------
+  document.getElementById('loginForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
-
+    
     const correo = document.getElementById('login_correo').value;
     const password = document.getElementById('login_password').value;
     const msg = document.getElementById('loginMsg');
-
+    
+    if (!msg) {
+      console.error('Elemento loginMsg no encontrado');
+      return;
+    }
+    
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: correo,
@@ -796,7 +821,6 @@
       if (error) {
         msg.textContent = error.message || 'Error al iniciar sesión';
         msg.style.color = 'red';
-        console.error('Error Supabase:', error);
       } else {
         msg.textContent = '¡Sesión iniciada!';
         msg.style.color = 'green';
@@ -816,21 +840,25 @@
         }, 1500);
       }
     } catch (error) {
-      msg.textContent = 'Error de conexión: ' + error.message;
+      msg.textContent = 'Error de conexión';
       msg.style.color = 'red';
-      console.error('Error:', error);
     }
   });
 
-  /* ----------------------------- REGISTRO CON SUPABASE ----------------------------- */
-  document.getElementById('registerForm')?.addEventListener('submit', async (e)=>{
+  // ----------------------------- REGISTRO -----------------------------
+  document.getElementById('registerForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
-
+    
     const nombre = document.getElementById('reg_nombre').value;
     const correo = document.getElementById('reg_correo').value;
     const password = document.getElementById('reg_password').value;
     const msg = document.getElementById('registerMsg');
-
+    
+    if (!msg) {
+      console.error('Elemento registerMsg no encontrado');
+      return;
+    }
+    
     if (password.length < 6) {
       msg.textContent = 'La contraseña debe tener al menos 6 caracteres';
       msg.style.color = 'red';
@@ -849,7 +877,6 @@
       if (error) {
         msg.textContent = error.message || 'Error en el registro';
         msg.style.color = 'red';
-        console.error('Error Supabase:', error);
       } else {
         msg.textContent = '¡Registrado! Revisa tu correo para confirmar.';
         msg.style.color = 'green';
@@ -860,25 +887,46 @@
         }, 2000);
       }
     } catch (error) {
-      msg.textContent = 'Error de conexión: ' + error.message;
+      msg.textContent = 'Error de conexión';
       msg.style.color = 'red';
-      console.error('Error:', error);
     }
   });
 
-  // Ajustar diseño al cambiar tamaño de ventana
+  // ----------------------------- INICIALIZACIÓN -----------------------------
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('📱 DOM cargado, inicializando...');
+    
+    // Mostrar sección inicial
+    showSection('inicio');
+    
+    // Verificar sesión de usuario
+    checkUserSession();
+    
+    // Configurar botones de agregar al carrito
+    document.querySelectorAll('.addBtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = parseInt(btn.getAttribute('data-id'));
+        const precio = parseFloat(btn.getAttribute('data-price'));
+        addToCart(id, 1, precio);
+      });
+    });
+    
+    // Prevenir envío de formularios
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+      });
+    });
+    
+    console.log('✅ Yecayork inicializado correctamente');
+  });
+
+  // Ajustar en redimensionamiento
   window.addEventListener('resize', function() {
     if (window.innerWidth >= 768) {
-      mobileMenu.classList.remove('open');
-      menuOverlay.classList.add('hidden');
+      if (mobileMenu) mobileMenu.classList.remove('open');
+      if (menuOverlay) menuOverlay.classList.add('hidden');
     }
-  });
-
-  // Prevenir formularios de recargar la página
-  document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-    });
   });
 </script>
 </body>
