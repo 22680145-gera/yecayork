@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Yecayork - Tienda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/static/styles.css">
+
+  <!-- Supabase Auth -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Reemplaza con tus valores reales de Supabase (Project URL y anon public key desde Settings → API)
+    const SUPABASE_URL = 'https://licmwvbpjnzmkxjevxsj.supabase.co'; // TU URL
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxpY213dmJwam56bWt4amV2eHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUwNjM5NTIsImV4cCI6MjA4MDYzOTk1Mn0.nzKRXLDD8HG_asPvUzga8J8zcZx9ikptoB32Lbg1CBY'; // TU CLAVE (anon)
+    
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    console.log('✅ Supabase inicializado correctamente');
+  </script>
+
+  <style>
+    /* Estilos responsivos adicionales */
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: block !important;
+      }
+      .desktop-menu {
+        display: none !important;
+      }
+      .mobile-menu {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      .mobile-menu.open {
+        transform: translateX(0);
+      }
+      .product-card {
+        margin-bottom: 1rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .text-responsive {
+        font-size: 0.9rem !important;
+      }
+      .heading-responsive {
+        font-size: 1.5rem !important;
+      }
+      .button-responsive {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.9rem !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-orange-100">
+
+  <!-- NAVBAR RESPONSIVE -->
+  <nav class="bg-orange-200 border-b-2 border-black p-3 md:p-4 flex items-center justify-between relative">
+    <div class="flex items-center gap-2 text-xl md:text-2xl font-bold text-orange-800">
+      🐮 <span class="hidden sm:inline">Yecayork</span>
+      <span class="sm:hidden">YC</span>
+    </div>
+    
+    <!-- Botón menú móvil -->
+    <button id="mobileMenuBtn" class="mobile-menu-btn md:hidden text-2xl text-orange-800">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Menú desktop -->
+    <ul class="desktop-menu hidden md:flex gap-4 lg:gap-6 text-base lg:text-lg font-semibold items-center">
+      <li><a href="#inicio" class="nav-link hover:text-orange-700 px-2 py-1">Inicio</a></li>
+      <li><a href="#cortes" class="nav-link hover:text-orange-700 px-2 py-1">Cortes</a></li>
+      <li><a href="#carrito" class="nav-link hover:text-orange-700 px-2 py-1">Carrito</a></li>
+      <li><a href="#contacto" class="nav-link hover:text-orange-700 px-2 py-1">Contacto</a></li>
+      <li id="loginMenuItem"><a href="#login" class="nav-link hover:text-orange-700 px-2 py-1">Login</a></li>
+      <li id="registerMenuItem"><a href="#registro" class="nav-link hover:text-orange-700 px-2 py-1">Registro</a></li>
+      <li id="userInfo" class="hidden">
+        <span id="userName" class="text-orange-700 text-sm"></span>
+        <button id="logoutBtn" class="ml-1 bg-orange-600 text-white px-2 py-1 rounded text-xs">Salir</button>
+      </li>
+    </ul>
+    
+    <!-- Menú móvil (oculto por defecto) -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-y-0 left-0 w-64 bg-orange-200 z-50 p-6 shadow-lg md:hidden">
+      <div class="flex justify-between items-center mb-8">
+        <div class="text-2xl font-bold text-orange-800">🐮 Yecayork</div>
+        <button id="closeMenuBtn" class="text-2xl text-orange-800">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <ul class="space-y-4">
+        <li><a href="#inicio" class="block py-3 px-4 hover:bg-orange-300 rounded nav-link text-lg font-semibold">Inicio</a></li>
+        <li><a href="#cortes" class="block py-3 px-4 hover:bg-orange-300 rounded nav-link text-lg font-semibold">Cortes de carne</a></li>
+        <li><a href="#carrito" class="block py-3 px-4 hover:bg-orange-300 rounded nav-link text-lg font-semibold">Carrito</a></li>
+        <li><a href="#contacto" class="block py-3 px-4 hover:bg-orange-300 rounded nav-link text-lg font-semibold">Contacto</a></li>
+        <li id="mobileLoginMenuItem"><a href="#login" class="block py-3 px-4 hover:bg-orange-300 rounded nav-link text-lg font-semibold">Iniciar Sesión</a></li>
+        <li id="mobileRegisterMenuItem"><a href="#registro" class="block py-3 px-4 hover:bg-orange-300 rounded nav-link text-lg font-semibold">Registro</a></li>
+        <li id="mobileUserInfo" class="hidden pt-4 border-t">
+          <span id="mobileUserName" class="text-orange-700"></span>
+          <button id="mobileLogoutBtn" class="mt-2 bg-orange-600 text-white px-4 py-2 rounded w-full">Cerrar Sesión</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Overlay para menú móvil -->
+  <div id="menuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden"></div>
+
+  <!-- INICIO -->
+  <section id="inicio" class="p-4 md:p-6">
+
+    <!-- BANNER PRINCIPAL -->
+    <div class="w-full h-48 md:h-72 lg:h-96 rounded-2xl md:rounded-3xl overflow-hidden mb-6 md:mb-8">
+      <img src="/static/img/bannerprincipal.jpg" class="w-full h-full object-cover">
+    </div>
+
+    <!-- ESPACIO PARA TEXTO -->
+    <div class="max-w-4xl mx-auto text-center mb-8 md:mb-12 px-2">
+      <h2 class="text-2xl md:text-3xl font-bold text-orange-800 mb-3 md:mb-4 heading-responsive">Bienvenido a Yecayork</h2>
+      <p class="text-base md:text-lg text-gray-700 text-responsive">
+        En Yecayork nos enorgullece ofrecer los mejores cortes de carne premium de la región. 
+        Calidad garantizada y sabor incomparable en cada bocado. 
+        ¡Descubre la excelencia en carnes!
+      </p>
+    </div>
+
+    <!-- 4 IMÁGENES CON DESCRIPCIÓN -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mt-8 md:mt-16 px-2">
+
+      <div class="flex flex-col items-center product-card">
+        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4">
+          <img src="/static/img/corte1.jpg" class="w-full h-full object-cover">
+        </div>
+        <div class="text-center">
+          <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Corte Especial 1</h3>
+          <p class="text-xs md:text-sm text-gray-600 text-responsive">
+            Cecina de res, ideal para ocasiones especiales.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center product-card">
+        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4">
+          <img src="/static/img/corte2.jpg" class="w-full h-full object-cover">
+        </div>
+        <div class="text-center">
+          <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Corte Especial 2</h3>
+          <p class="text-xs md:text-sm text-gray-600 text-responsive">
+            Longaniza, perfecta para parrilladas familiares.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center product-card">
+        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4">
+          <img src="/static/img/corte3.jpg" class="w-full h-full object-cover">
+        </div>
+        <div class="text-center">
+          <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Corte Especial 3</h3>
+          <p class="text-xs md:text-sm text-gray-600 text-responsive">
+            Cecina enchilada, la elección de los expertos.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center product-card">
+        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4">
+          <img src="/static/img/corte4.jpg" class="w-full h-full object-cover">
+        </div>
+        <div class="text-center">
+          <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Corte Especial 4</h3>
+          <p class="text-xs md:text-sm text-gray-600 text-responsive">
+            Gorditos o grasitas, para los paladares más exigentes.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- resto del markup (secciones cortes, carrito, pago, contacto, login, registro) -->
+  <!-- ...existing code... -->
+
+<script>
+  /* ----------------------------- MENÚ MÓVIL ----------------------------- */
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const closeMenuBtn = document.getElementById('closeMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const mobileNavLinks = document.querySelectorAll('#mobileMenu .nav-link');
+
+  if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+      menuOverlay.classList.remove('hidden');
+    });
+  }
+
+  if (closeMenuBtn) {
+    closeMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuOverlay.classList.add('hidden');
+    });
+  }
+
+  if (menuOverlay) {
+    menuOverlay.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuOverlay.classList.add('hidden');
+    });
+  }
+
+  // Cerrar menú al hacer clic en enlace
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuOverlay.classList.add('hidden');
+    });
+  });
+
+  /* ----------------------------- NAV SECTIONS ----------------------------- */
+  const sections = {
+    inicio: document.getElementById('inicio'),
+    cortes: document.getElementById('cortes'),
+    carrito: document.getElementById('carrito'),
+    pago: document.getElementById('pago'),
+    contacto: document.getElementById('contacto'),
+    login: document.getElementById('login'),
+    registro: document.getElementById('registro')
+  };
+
+  function showSection(id){
+    Object.values(sections).forEach(s => s.classList.add('hidden'));
+    if (sections[id]) {
+      sections[id].classList.remove('hidden');
+    }
+    // Cerrar menú móvil si está abierto
+    if (mobileMenu) {
+      mobileMenu.classList.remove('open');
+      menuOverlay.classList.add('hidden');
+    }
+  }
+
+  document.querySelectorAll('.nav-link').forEach(link=>{
+    link.addEventListener('click', e=>{
+      e.preventDefault();
+      const id = link.getAttribute('href').replace('#','');
+      showSection(id);
+      
+      // Scroll suave al principio en móviles
+      if (window.innerWidth < 768) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  });
+
+  showSection('inicio');
+
+  /* ----------------------------- PRODUCTOS ----------------------------- */
+  let CART = [];
+
+  // Datos fijos para los cortes
+  const productosFijos = [
+    { id: 1, nombre: "Corte Cecina de res", precio: 360, imagen: "img/corte1.jpg", descripcion: "Carne de res de las cuartos traseros..." },
+    { id: 2, nombre: "Corte Longaniza", precio: 160, imagen: "img/corte2.jpg", descripcion: "Carne molida de puerco condimentada..." },
+    { id: 3, nombre: "Corte Cecina enchilada", precio: 240, imagen: "img/corte3.jpg", descripcion: "Elaborada con la carne del cuarto trasero..." },
+    { id: 4, nombre: "Corte Gorditos o Gracitas", precio: 120, imagen: "img/corte4.jpg", descripcion: "Corte derivado de la cecina..." }
+  ];
+
+  /* ----------------------------- CARRITO ----------------------------- */
+  function addToCart(product_id, cantidad, precio_unitario){
+    const idx = CART.findIndex(i => i.product_id == product_id);
+    if(idx >= 0){
+      CART[idx].cantidad += cantidad;
+    } else {
+      CART.push({
+        product_id: product_id, 
+        cantidad: cantidad, 
+        precio_unitario: precio_unitario
+      });
+    }
+    renderCart();
+    showNotification('Producto agregado al carrito');
+  }
+
+  function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-3 md:px-4 py-2 rounded shadow-lg z-50 text-sm md:text-base';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
+  }
+
+  function renderCart(){
+    const cartItems = document.getElementById('cartItems');
+    const cartEmpty = document.getElementById('cartEmpty');
+    const cartSummary = document.getElementById('cartSummary');
+    
+    cartItems.innerHTML = '';
+
+    if(CART.length === 0){
+      cartEmpty.style.display = 'block';
+      cartSummary.classList.add('hidden');
+      return;
+    }
+
+    cartEmpty.style.display = 'none';
+    cartSummary.classList.remove('hidden');
+
+    let total = 0;
+
+    CART.forEach((it, index) => {
+      const p = productosFijos.find(prod => prod.id == it.product_id);
+
+      if (!p) return;
+
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'flex flex-col sm:flex-row items-center justify-between p-3 border-b gap-2';
+
+      itemDiv.innerHTML = `
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <img src="/static/${p.imagen}" class="h-12 w-12 object-cover rounded-lg">
+          <div class="flex-1">
+            <div class="font-semibold text-sm md:text-base">${p.nombre}</div>
+            <div class="text-xs md:text-sm">Precio unitario: $${it.precio_unitario}</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
+          <div class="flex items-center gap-1">
+            <button class="decBtn px-2 md:px-3 py-1 border rounded text-sm" data-idx="${index}">-</button>
+            <div class="px-2">${it.cantidad}</div>
+            <button class="incBtn px-2 md:px-3 py-1 border rounded text-sm" data-idx="${index}">+</button>
+          </div>
+          <div class="ml-2 md:ml-4 font-semibold text-sm md:text-base">$${(it.cantidad * it.precio_unitario).toFixed(2)}</div>
+        </div>
+      `;
+
+      cartItems.appendChild(itemDiv);
+      total += it.cantidad * it.precio_unitario;
+    });
+
+    document.getElementById('cartTotal').textContent = total.toFixed(2);
+
+    document.querySelectorAll('.incBtn').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const i = parseInt(b.getAttribute('data-idx'));
+        CART[i].cantidad++;
+        renderCart();
+      });
+    });
+
+    document.querySelectorAll('.decBtn').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const i = parseInt(b.getAttribute('data-idx'));
+        CART[i].cantidad--;
+        if(CART[i].cantidad <= 0) CART.splice(i,1);
+        renderCart();
+      });
+    });
+  }
+
+  // Agregar event listeners a los botones de agregar al carrito
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.addBtn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = parseInt(btn.getAttribute('data-id'));
+        const precio = parseFloat(btn.getAttribute('data-price'));
+        addToCart(id, 1, precio);
+      });
+    });
+    
+    // Verificar sesión al cargar la página usando Supabase
+    checkUserSession();
+  });
+
+  /* ----------------------------- SESIÓN DE USUARIO (Supabase) ----------------------------- */
+  async function checkUserSession() {
+    try {
+      const { data: { user }, error } = await supabase.auth.getUser();
+
+      if (error) {
+        console.error('Error al verificar sesión:', error);
+        updateUserInfo(null);
+        return { logged_in: false };
+      }
+
+      if (user) {
+        const userData = {
+          nombre: user.user_metadata?.nombre || user.email.split('@')[0],
+          id: user.id,
+          correo: user.email
+        };
+        updateUserInfo(userData);
+        return { logged_in: true, user: userData };
+      }
+
+      updateUserInfo(null);
+      return { logged_in: false };
+    } catch (error) {
+      console.error('Error al verificar sesión:', error);
+      updateUserInfo(null);
+      return { logged_in: false };
+    }
+  }
+
+  function updateUserInfo(userData = null) {
+    const userInfo = document.getElementById('userInfo');
+    const userName = document.getElementById('userName');
+    const mobileUserInfo = document.getElementById('mobileUserInfo');
+    const mobileUserName = document.getElementById('mobileUserName');
+    const loginMenuItem = document.getElementById('loginMenuItem');
+    const registerMenuItem = document.getElementById('registerMenuItem');
+    const mobileLoginMenuItem = document.getElementById('mobileLoginMenuItem');
+    const mobileRegisterMenuItem = document.getElementById('mobileRegisterMenuItem');
+    
+    if (userData) {
+      if (userName) userName.textContent = `Hola, ${userData.nombre}`;
+      if (mobileUserName) mobileUserName.textContent = `Hola, ${userData.nombre}`;
+      if (userInfo) userInfo.classList.remove('hidden');
+      if (mobileUserInfo) mobileUserInfo.classList.remove('hidden');
+      if (loginMenuItem) loginMenuItem.classList.add('hidden');
+      if (registerMenuItem) registerMenuItem.classList.add('hidden');
+      if (mobileLoginMenuItem) mobileLoginMenuItem.classList.add('hidden');
+      if (mobileRegisterMenuItem) mobileRegisterMenuItem.classList.add('hidden');
+    } else {
+      if (userInfo) userInfo.classList.add('hidden');
+      if (mobileUserInfo) mobileUserInfo.classList.add('hidden');
+      if (loginMenuItem) loginMenuItem.classList.remove('hidden');
+      if (registerMenuItem) registerMenuItem.classList.remove('hidden');
+      if (mobileLoginMenuItem) mobileLoginMenuItem.classList.remove('hidden');
+      if (mobileRegisterMenuItem) mobileRegisterMenuItem.classList.remove('hidden');
+    }
+  }
+
+  async function logout(){ 
+    try {
+      const { error } = await supabase.auth.signOut();
+      
+      if (error) {
+        console.error('Error al cerrar sesión:', error);
+        showNotification('Error al cerrar sesión');
+        return;
+      }
+      
+      updateUserInfo(null);
+      showSection('inicio');
+      showNotification('Sesión cerrada correctamente');
+      
+      if (mobileMenu) {
+        mobileMenu.classList.remove('open');
+        menuOverlay.classList.add('hidden');
+      }
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+      showNotification('Error al cerrar sesión');
+    }
+  }
+
+  // Event listeners para logout
+  document.getElementById('logoutBtn')?.addEventListener('click', logout);
+  document.getElementById('mobileLogoutBtn')?.addEventListener('click', logout);
+
+  /* ----------------------------- LOGIN CON SUPABASE ----------------------------- */
+  document.getElementById('loginForm')?.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+
+    const correo = document.getElementById('login_correo').value;
+    const password = document.getElementById('login_password').value;
+    const msg = document.getElementById('loginMsg');
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: correo,
+        password: password
+      });
+
+      if (error) {
+        msg.textContent = error.message || 'Error al iniciar sesión';
+        msg.style.color = 'red';
+        console.error('Error Supabase:', error);
+      } else {
+        msg.textContent = '¡Sesión iniciada!';
+        msg.style.color = 'green';
+        document.getElementById('loginForm').reset();
+        
+        const userData = {
+          nombre: data.user.user_metadata?.nombre || correo.split('@')[0],
+          id: data.user.id,
+          correo: data.user.email
+        };
+        
+        updateUserInfo(userData);
+        
+        setTimeout(() => {
+          showSection('inicio');
+          showNotification('¡Bienvenido ' + userData.nombre + '!');
+        }, 1500);
+      }
+    } catch (error) {
+      msg.textContent = 'Error de conexión: ' + error.message;
+      msg.style.color = 'red';
+      console.error('Error:', error);
+    }
+  });
+
+  /* ----------------------------- REGISTRO CON SUPABASE ----------------------------- */
+  document.getElementById('registerForm')?.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+
+    const nombre = document.getElementById('reg_nombre').value;
+    const correo = document.getElementById('reg_correo').value;
+    const password = document.getElementById('reg_password').value;
+    const msg = document.getElementById('registerMsg');
+
+    if (password.length < 6) {
+      msg.textContent = 'La contraseña debe tener al menos 6 caracteres';
+      msg.style.color = 'red';
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: correo,
+        password: password,
+        options: {
+          data: { nombre: nombre }
+        }
+      });
+
+      if (error) {
+        msg.textContent = error.message || 'Error en el registro';
+        msg.style.color = 'red';
+        console.error('Error Supabase:', error);
+      } else {
+        msg.textContent = '¡Registrado! Revisa tu correo para confirmar.';
+        msg.style.color = 'green';
+        document.getElementById('registerForm').reset();
+        
+        setTimeout(() => {
+          showSection('login');
+        }, 2000);
+      }
+    } catch (error) {
+      msg.textContent = 'Error de conexión: ' + error.message;
+      msg.style.color = 'red';
+      console.error('Error:', error);
+    }
+  });
+
+  /* ----------------------------- PAGO (checkout) ----------------------------- */
+  document.getElementById('checkoutBtn')?.addEventListener('click', async ()=>{
+    const sessionCheck = await checkUserSession();
+    
+    if (!sessionCheck.logged_in) {
+      alert('Debes iniciar sesión para proceder al pago');
+      showSection('login');
+      return;
+    }
+    
+    if (CART.length === 0) {
+      alert('Tu carrito está vacío');
+      return;
+    }
+    
+    showSection('pago');
+  });
+
+  // resto de la lógica de pago y utilidades
+  // ...existing code...
+
+  // Ajustar diseño al cambiar tamaño de ventana
+  window.addEventListener('resize', function() {
+    if (window.innerWidth >= 768) {
+      mobileMenu.classList.remove('open');
+      menuOverlay.classList.add('hidden');
+    }
+  });
+
+  // Prevenir formularios de recargar la página
+  document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+    });
+  });
+</script>
+</body>
+</html>
