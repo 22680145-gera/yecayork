@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cuerno Izquierdo -->
+  <path d="M 150 120 Q 80 60, 95 30 Q 100 15, 120 20 Q 160 30, 185 80 Q 195 100, 180 130 Q 175 140, 165 135 L 155 130 Q 145 125, 150 120 Z" fill="#0a0a0a" stroke="#0a0a0a" stroke-width="2"/>
+  
+  <!-- Líneas del Cuerno Izquierdo -->
+  <path d="M 135 90 Q 125 85, 130 80" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M 145 105 Q 135 100, 140 95" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M 155 118 Q 145 113, 150 108" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+  <!-- Base Cuerno Izquierdo -->
+  <path d="M 170 140 Q 180 130, 190 135 Q 195 145, 185 155 Q 175 160, 170 155 Z" fill="#ffffff" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Cuerno Derecho -->
+  <path d="M 450 120 Q 520 60, 505 30 Q 500 15, 480 20 Q 440 30, 415 80 Q 405 100, 420 130 Q 425 140, 435 135 L 445 130 Q 455 125, 450 120 Z" fill="#0a0a0a" stroke="#0a0a0a" stroke-width="2"/>
+
+  <!-- Líneas del Cuerno Derecho -->
+  <path d="M 465 90 Q 475 85, 470 80" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M 455 105 Q 465 100, 460 95" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M 445 118 Q 455 113, 450 108" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+  <!-- Base Cuerno Derecho -->
+  <path d="M 430 140 Q 420 130, 410 135 Q 405 145, 415 155 Q 425 160, 430 155 Z" fill="#ffffff" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Oreja Izquierda -->
+  <path d="M 50 240 Q 30 220, 40 200 Q 60 180, 90 190 Q 120 200, 130 230 Q 135 250, 120 260 Q 100 270, 70 260 Q 55 255, 50 240 Z" fill="#0a0a0a" stroke="#0a0a0a" stroke-width="2"/>
+
+  <!-- Oreja Derecha -->
+  <path d="M 550 240 Q 570 220, 560 200 Q 540 180, 510 190 Q 480 200, 470 230 Q 465 250, 480 260 Q 500 270, 530 260 Q 545 255, 550 240 Z" fill="#0a0a0a" stroke="#0a0a0a" stroke-width="2"/>
+
+  <!-- Cabeza Superior -->
+  <path d="M 200 160 Q 180 150, 180 170 Q 180 190, 200 205 Q 220 215, 240 220 Q 260 225, 280 228 Q 300 230, 320 228 Q 340 225, 360 220 Q 380 215, 400 205 Q 420 190, 420 170 Q 420 150, 400 160 L 380 165 Q 360 168, 340 170 Q 320 172, 300 172 Q 280 172, 260 170 Q 240 168, 220 165 Z" fill="#0a0a0a" stroke="#0a0a0a" stroke-width="2"/>
+
+  <!-- Cuello/Cuerpo Superior -->
+  <path d="M 220 280 Q 200 300, 190 330 Q 180 360, 180 390 Q 180 420, 200 440 L 220 455 Q 240 465, 260 470 Q 280 472, 300 472 Q 320 472, 340 470 Q 360 465, 380 455 L 400 440 Q 420 420, 420 390 Q 420 360, 410 330 Q 400 300, 380 280 Z" fill="#0a0a0a" stroke="#0a0a0a" stroke-width="2"/>
+
+  <!-- Ojo Izquierdo -->
+  <path d="M 245 300 Q 235 295, 230 305 Q 228 315, 235 325 Q 240 332, 250 330 Q 258 327, 260 318 Q 261 308, 255 302 Q 252 298, 245 300 Z" fill="#ffffff"/>
+
+  <!-- Ojo Derecho -->
+  <path d="M 355 300 Q 365 295, 370 305 Q 372 315, 365 325 Q 360 332, 350 330 Q 342 327, 340 318 Q 339 308, 345 302 Q 348 298, 355 300 Z" fill="#ffffff"/>
+
+  <!-- Nariz Izquierda -->
+  <path d="M 260 400 Q 250 395, 245 405 Q 240 420, 245 430 Q 250 438, 260 440 Q 270 441, 280 438 Q 285 435, 285 425 L 285 415 Q 285 405, 280 400 Q 270 398, 260 400 Z" fill="#ffffff"/>
+
+  <!-- Nariz Derecha -->
+  <path d="M 340 400 Q 330 398, 320 400 Q 315 405, 315 415 L 315 425 Q 315 435, 320 438 Q 330 441, 340 440 Q 350 438, 355 430 Q 360 420, 355 405 Q 350 395, 340 400 Z" fill="#ffffff"/>
+
+  <!-- Boca/Mandíbula Inferior -->
+  <path d="M 280 500 Q 260 495, 250 505 Q 245 515, 255 525 Q 270 535, 300 540 Q 330 535, 345 525 Q 355 515, 350 505 Q 340 495, 320 500 Q 300 503, 280 500 Z" fill="#0a0a0a" stroke="#0a0a0a" stroke-width="2"/>
+
+  <!-- Línea de Boca -->
+  <path d="M 300 540 Q 300 550, 300 560" stroke="#ffffff" stroke-width="4" stroke-linecap="round" fill="none"/>
+</svg>

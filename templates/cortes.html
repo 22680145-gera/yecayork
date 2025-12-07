@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortes – Yeca York</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>Catálogo de Cortes</h1>
+        <nav>
+            <a href="/">Inicio</a>
+            <a href="/cortes">Cortes</a>
+            <a href="/registro">Registro</a>
+            <a href="/carrito">Carrito</a>
+        </nav>
+    </header>
+
+    <section class="cortes-container">
+        <h2>Explora Nuestros Estilos</h2>
+
+        <div class="corte-card">
+            <img src="{{ url_for('static', filename='img/corte1.jpg') }}" alt="Corte 1">
+            <h3>Corte 1</h3>
+        </div>
+
+        <div class="corte-card">
+            <img src="{{ url_for('static', filename='img/corte2.jpg') }}" alt="Corte 2">
+            <h3>Corte 2</h3>
+        </div>
+
+        <div class="corte-card">
+            <img src="{{ url_for('static', filename='img/corte3.jpg') }}" alt="Corte 3">
+            <h3>Corte 3</h3>
+        </div>
+
+        <div class="corte-card">
+            <img src="{{ url_for('static', filename='img/corte4.jpg') }}" alt="Corte 4">
+            <h3>Corte 4</h3>
+        </div>
+
+    </section>
+
+</body>
+</html>

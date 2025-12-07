@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro</title>
+</head>
+<body>
+    <h2>Registro</h2>
+
+    <form id="formRegistro">
+        <input type="text" name="nombre" placeholder="Nombre" required><br>
+        <input type="email" name="correo" placeholder="Correo" required><br>
+        <input type="password" name="password" placeholder="Contraseña" required><br>
+        <button type="submit">Registrarse</button>
+    </form>
+
+    <script>
+        document.getElementById("formRegistro").addEventListener("submit", async function(e) {
+            e.preventDefault(); // No recargar la página
+
+            let data = {
+                nombre: e.target.nombre.value,
+                correo: e.target.correo.value,
+                password: e.target.password.value
+            };
+
+            console.log("📤 Enviando JSON:", data);
+
+            const respuesta = await fetch("/api/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await respuesta.json();
+            console.log("📥 Respuesta del servidor:", result);
+
+            alert(result.message);
+
+            if (result.success) {
+                window.location.href = "/login"; // Redirigir si quieres
+            }
+        });
+    </script>
+
+</body>
+</html>
+

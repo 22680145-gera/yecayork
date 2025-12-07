@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Yecayork - Tienda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="/static/styles.css">
+  <style>
+    /* Estilos responsivos adicionales */
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: block !important;
+      }
+      .desktop-menu {
+        display: none !important;
+      }
+      .mobile-menu {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      .mobile-menu.open {
+        transform: translateX(0);
+      }
+      .product-card {
+        margin-bottom: 1rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .text-responsive {
+        font-size: 0.9rem !important;
+      }
+      .heading-responsive {
+        font-size: 1.5rem !important;
+      }
+      .button-responsive {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.9rem !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-orange-100">
+
+  <!-- NAVBAR RESPONSIVE -->
+  <nav class="bg-orange-200 border-b-2 border-black p-3 md:p-4 flex items-center justify-between relative">
+    <div class="flex items-center gap-2 text-xl md:text-2xl font-bold text-orange-800">
+      🐮 <span class="hidden sm:inline">Yecayork</span>
+      <span class="sm:hidden">YC</span>
+    </div>
+    
+    <!-- Botón menú móvil -->
+    <button id="mobileMenuBtn" class="mobile-menu-btn md:hidden text-2xl text-orange-800">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Menú desktop -->
+    <ul class="desktop-menu hidden md:flex gap-4 lg:gap-6 text-base lg:text-lg font-semibold items-center">
+      <li><a href="#inicio" class="nav-link hover:text-orange-700 px-2 py-1">Inicio</a></li>
+      <li><a href="#cortes" class="nav-link hover:text-orange-700 px-2 py-1">Cortes</a></li>
+      <li><a href="#carrito" class="nav-link hover:text-orange-700 px-2 py-1">Carrito</a></li>
+      <li><a href="#contacto" class="nav-link hover:text-orange-700 px-2 py-1">Contacto</a></li>
+      <li><a href="#login" class="nav-link hover:text-orange-700 px-2 py-1">Login</a></li>
+      <li><a href="#registro" class="nav-link hover:text-orange-700 px-2 py-1">Registro</a></li>
+      <li id="userInfo" class="hidden">
+        <span id="userName" class="text-orange-700 text-sm"></span>
+        <button id="logoutBtn" class="ml-1 bg-orange-600 text-white px-2 py-1 rounded text-xs">Salir</button>
+      </li>
+    </ul>
+    
+    <!-- Menú móvil (oculto por defecto) -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-y-0 left-0 w-64 bg-orange-200 z-50 p-6 shadow-lg md:hidden">
+      <div class="flex justify-between items-center mb-8">
+        <div class="text-2xl font-bold text-orange-800">🐮 Yecayork</div>
+        <button id="closeMenuBtn" class="text-2xl text-orange-800">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <ul class="space-y-4">
+        <li><a href="#inicio" class="block py-3 px-4 hover:bg-orange-300 rounded nav-link text-lg font-semibold">Inicio</a></li>
+        <li><a href="#cortes" class="block py-3 px-4 hover:bg-orange-300 rounded nav-link text-lg font-semibold">Cortes de carne</a></li>
+        <li><a href="#carrito" class="block py-3 px-4 hover:bg-orange-300 rounded nav-link text-lg font-semibold">Carrito</a></li>
+        <li><a href="#contacto" class="block py-3 px-4 hover:bg-orange-300 rounded nav-link text-lg font-semibold">Contacto</a></li>
+        <li><a href="#login" class="block py-3 px-4 hover:bg-orange-300 rounded nav-link text-lg font-semibold">Iniciar Sesión</a></li>
+        <li><a href="#registro" class="block py-3 px-4 hover:bg-orange-300 rounded nav-link text-lg font-semibold">Registro</a></li>
+        <li id="mobileUserInfo" class="hidden pt-4 border-t">
+          <span id="mobileUserName" class="text-orange-700"></span>
+          <button id="mobileLogoutBtn" class="mt-2 bg-orange-600 text-white px-4 py-2 rounded w-full">Cerrar Sesión</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Overlay para menú móvil -->
+  <div id="menuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden"></div>
+
+  <!-- INICIO -->
+  <section id="inicio" class="p-4 md:p-6">
+
+    <!-- BANNER PRINCIPAL -->
+    <div class="w-full h-48 md:h-72 lg:h-96 rounded-2xl md:rounded-3xl overflow-hidden mb-6 md:mb-8">
+      <img src="/static/img/bannerprincipal.jpg" class="w-full h-full object-cover">
+    </div>
+
+    <!-- ESPACIO PARA TEXTO -->
+    <div class="max-w-4xl mx-auto text-center mb-8 md:mb-12 px-2">
+      <h2 class="text-2xl md:text-3xl font-bold text-orange-800 mb-3 md:mb-4 heading-responsive">Bienvenido a Yecayork</h2>
+      <p class="text-base md:text-lg text-gray-700 text-responsive">
+        En Yecayork nos enorgullece ofrecer los mejores cortes de carne premium de la región. 
+        Calidad garantizada y sabor incomparable en cada bocado. 
+        ¡Descubre la excelencia en carnes!
+      </p>
+    </div>
+
+    <!-- 4 IMÁGENES CON DESCRIPCIÓN -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mt-8 md:mt-16 px-2">
+
+      <div class="flex flex-col items-center product-card">
+        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4">
+          <img src="/static/img/corte1.jpg" class="w-full h-full object-cover">
+        </div>
+        <div class="text-center">
+          <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Corte Especial 1</h3>
+          <p class="text-xs md:text-sm text-gray-600 text-responsive">
+            Cecina de res, ideal para ocasiones especiales.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center product-card">
+        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4">
+          <img src="/static/img/corte2.jpg" class="w-full h-full object-cover">
+        </div>
+        <div class="text-center">
+          <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Corte Especial 2</h3>
+          <p class="text-xs md:text-sm text-gray-600 text-responsive">
+            Longaniza, perfecta para parrilladas familiares.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center product-card">
+        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4">
+          <img src="/static/img/corte3.jpg" class="w-full h-full object-cover">
+        </div>
+        <div class="text-center">
+          <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Corte Especial 3</h3>
+          <p class="text-xs md:text-sm text-gray-600 text-responsive">
+            Cecina enchilada, la elección de los expertos.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center product-card">
+        <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4">
+          <img src="/static/img/corte4.jpg" class="w-full h-full object-cover">
+        </div>
+        <div class="text-center">
+          <h3 class="font-bold text-base md:text-lg mb-1 md:mb-2">Corte Especial 4</h3>
+          <p class="text-xs md:text-sm text-gray-600 text-responsive">
+            Gorditos o grasitas, para los paladares más exigentes.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CORTES -->
+  <section id="cortes" class="p-4 md:p-6 hidden">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-center heading-responsive">Cortes de Carne</h2>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 lg:gap-6 max-w-6xl mx-auto">
+      
+      <!-- Producto 1 -->
+      <div class="bg-white border-2 border-black p-3 md:p-4 flex flex-col items-center rounded-xl md:rounded-2xl product-card">
+        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3">
+          <img src="/static/img/corte1.jpg" class="w-full h-full object-cover">
+        </div>
+        <h3 class="font-bold text-base md:text-lg lg:text-xl mt-1 md:mt-2 text-center">Corte Cecina de res</h3>
+        <p class="text-xs md:text-sm text-gray-600 text-center mb-2 md:mb-3 text-responsive">
+          Carne de res de las cuartos traseros, que se filetea, sala, se seca al sol y se unta con manteca de cerdo.
+        </p>
+        <div class="mt-auto w-full flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div class="text-lg md:text-xl lg:text-2xl font-bold text-orange-700">$360</div>
+          <button class="addBtn bg-orange-600 hover:bg-orange-700 text-white px-3 md:px-4 py-1 md:py-2 rounded text-sm md:text-base button-responsive w-full sm:w-auto" 
+            data-id="1" data-price="360">Agregar 1 kg</button>
+        </div>
+      </div>
+
+      <!-- Producto 2 -->
+      <div class="bg-white border-2 border-black p-3 md:p-4 flex flex-col items-center rounded-xl md:rounded-2xl product-card">
+        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3">
+          <img src="/static/img/corte2.jpg" class="w-full h-full object-cover">
+        </div>
+        <h3 class="font-bold text-base md:text-lg lg:text-xl mt-1 md:mt-2 text-center">Corte Longaniza</h3>
+        <p class="text-xs md:text-sm text-gray-600 text-center mb-2 md:mb-3 text-responsive">
+          Carne molida de puerco condimentada con pasas, almendras. Utilizando las tripas del cerdo para embutir.
+        </p>
+        <div class="mt-auto w-full flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div class="text-lg md:text-xl lg:text-2xl font-bold text-orange-700">$160</div>
+          <button class="addBtn bg-orange-600 hover:bg-orange-700 text-white px-3 md:px-4 py-1 md:py-2 rounded text-sm md:text-base button-responsive w-full sm:w-auto" 
+            data-id="2" data-price="160">Agregar 1 kg</button>
+        </div>
+      </div>
+
+      <!-- Producto 3 -->
+      <div class="bg-white border-2 border-black p-3 md:p-4 flex flex-col items-center rounded-xl md:rounded-2xl product-card">
+        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3">
+          <img src="/static/img/corte3.jpg" class="w-full h-full object-cover">
+        </div>
+        <h3 class="font-bold text-base md:text-lg lg:text-xl mt-1 md:mt-2 text-center">Corte Cecina enchilada</h3>
+        <p class="text-xs md:text-sm text-gray-600 text-center mb-2 md:mb-3 text-responsive">
+          Elaborada con la carne del cuarto trasero del puerco, enchilado con receta de la casa.
+        </p>
+        <div class="mt-auto w-full flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div class="text-lg md:text-xl lg:text-2xl font-bold text-orange-700">$240</div>
+          <button class="addBtn bg-orange-600 hover:bg-orange-700 text-white px-3 md:px-4 py-1 md:py-2 rounded text-sm md:text-base button-responsive w-full sm:w-auto" 
+            data-id="3" data-price="240">Agregar 1 kg</button>
+        </div>
+      </div>
+
+      <!-- Producto 4 -->
+      <div class="bg-white border-2 border-black p-3 md:p-4 flex flex-col items-center rounded-xl md:rounded-2xl product-card">
+        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3">
+          <img src="/static/img/corte4.jpg" class="w-full h-full object-cover">
+        </div>
+        <h3 class="font-bold text-base md:text-lg lg:text-xl mt-1 md:mt-2 text-center">Corte Gorditos o Gracitas</h3>
+        <p class="text-xs md:text-sm text-gray-600 text-center mb-2 md:mb-3 text-responsive">
+          Corte derivado de la cecina, quitándose como exceso, la grasa.
+        </p>
+        <div class="mt-auto w-full flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div class="text-lg md:text-xl lg:text-2xl font-bold text-orange-700">$120</div>
+          <button class="addBtn bg-orange-600 hover:bg-orange-700 text-white px-3 md:px-4 py-1 md:py-2 rounded text-sm md:text-base button-responsive w-full sm:w-auto" 
+            data-id="4" data-price="120">Agregar 1 kg</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARRITO -->
+  <section id="carrito" class="p-4 md:p-6 hidden">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Carrito</h2>
+    <div id="cartContainer" class="space-y-4">
+      <p id="cartEmpty" class="text-center py-8">No hay productos en el carrito.</p>
+      <div id="cartItems" class="space-y-3"></div>
+      <div id="cartSummary" class="mt-4 p-4 bg-white border-2 border-black max-w-md mx-auto hidden rounded-xl md:rounded-2xl">
+        <p class="text-lg md:text-xl font-bold text-center">Total: $<span id="cartTotal">0.00</span> MXN</p>
+        <button id="checkoutBtn" class="mt-3 bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 w-full button-responsive">Proceder al Pago</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGO -->
+  <section id="pago" class="p-4 md:p-6 hidden">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Proceso de Pago</h2>
+    <div class="bg-white p-4 md:p-6 rounded-xl shadow-md max-w-2xl mx-auto border-2 border-black">
+      
+      <div class="mb-4 md:mb-6">
+        <h3 class="text-lg md:text-xl font-bold mb-3">Forma de Pago</h3>
+        <div class="flex flex-col sm:flex-row gap-3 md:gap-4 mb-4">
+          <div class="flex items-center">
+            <input type="radio" id="visa" name="payment" value="visa" class="mr-2" checked>
+            <label for="visa" class="flex items-center text-sm md:text-base">
+              <span class="mr-2">VISA</span>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="h-5 md:h-6">
+            </label>
+          </div>
+          <div class="flex items-center">
+            <input type="radio" id="mastercard" name="payment" value="mastercard" class="mr-2">
+            <label for="mastercard" class="flex items-center text-sm md:text-base">
+              <span class="mr-2">MasterCard</span>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-5 md:h-6">
+            </label>
+          </div>
+          <div class="flex items-center">
+            <input type="radio" id="oxxo" name="payment" value="oxxo" class="mr-2">
+            <label for="oxxo" class="flex items-center text-sm md:text-base">
+              <span class="mr-2">OXXO</span>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/OXXO_Logo.svg" class="h-5 md:h-6">
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div id="cardPayment" class="mb-4 md:mb-6">
+        <h3 class="text-lg md:text-xl font-bold mb-3">Método de pago</h3>
+        <div class="space-y-3 md:space-y-4">
+          <div>
+            <label class="block mb-2 font-semibold text-sm md:text-base">Número de la tarjeta</label>
+            <input type="text" id="cardNumber" class="w-full border-2 border-black p-2 md:p-3 rounded text-sm md:text-base" placeholder="1234 5678 9012 3456" maxlength="19">
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+            <div>
+              <label class="block mb-2 font-semibold text-sm md:text-base">Fecha de vencimiento</label>
+              <div class="flex gap-2">
+                <select id="expMonth" class="w-full border-2 border-black p-2 rounded text-sm md:text-base">
+                  <option value="">Mes</option>
+                  <option value="01">01 - Enero</option>
+                  <option value="02">02 - Febrero</option>
+                  <option value="03">03 - Marzo</option>
+                  <option value="04">04 - Abril</option>
+                  <option value="05">05 - Mayo</option>
+                  <option value="06">06 - Junio</option>
+                  <option value="07">07 - Julio</option>
+                  <option value="08">08 - Agosto</option>
+                  <option value="09">09 - Septiembre</option>
+                  <option value="10">10 - Octubre</option>
+                  <option value="11">11 - Noviembre</option>
+                  <option value="12">12 - Diciembre</option>
+                </select>
+                <select id="expYear" class="w-full border-2 border-black p-2 rounded text-sm md:text-base">
+                  <option value="">Año</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block mb-2 font-semibold text-sm md:text-base">CVV</label>
+              <input type="text" id="cvv" class="w-full border-2 border-black p-2 rounded text-sm md:text-base" placeholder="123" maxlength="3">
+            </div>
+          </div>
+          <div>
+            <label class="block mb-2 font-semibold text-sm md:text-base">Nombre en la tarjeta</label>
+            <input type="text" id="cardName" class="w-full border-2 border-black p-2 rounded text-sm md:text-base" placeholder="JUAN PEREZ">
+          </div>
+        </div>
+      </div>
+
+      <div id="oxxoPayment" class="mb-4 md:mb-6 hidden">
+        <h3 class="text-lg md:text-xl font-bold mb-3">Pago en OXXO</h3>
+        <p class="mb-4 text-sm md:text-base">Se generará un código de barras para que realices el pago en cualquier tienda OXXO.</p>
+        <div class="bg-gray-100 p-3 md:p-4 text-center border-2 border-dashed border-gray-400 rounded">
+          <p class="font-bold text-sm md:text-base">Código de barras:</p>
+          <p class="text-lg md:text-2xl font-mono">1234 5678 9012 3456 7890</p>
+          <p class="text-xs md:text-sm text-gray-600 mt-2">Válido por 72 horas</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 md:gap-4">
+        <button id="backToCart" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 text-sm md:text-base button-responsive">Volver al Carrito</button>
+        <button id="confirmPayment" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 text-sm md:text-base button-responsive">Confirmar Pago</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="p-4 md:p-6 hidden">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Contacto</h2>
+    
+    <div class="w-full h-48 md:h-64 lg:h-80 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-6 md:mb-8">
+      <img src="/static/img/iglesia.jpg" class="w-full h-full object-cover">
+    </div>
+    
+    <div class="max-w-4xl mx-auto px-2">
+      <p class="mt-4 text-base md:text-lg text-center mb-6 md:mb-8 text-responsive">Dirección de ejemplo - Tel: 7352152870</p>
+      
+      <div class="flex justify-center md:justify-end gap-4 mt-6 md:mt-8">
+        <a href="#" class="text-blue-600 hover:text-blue-800 text-xl md:text-2xl">
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="text-pink-600 hover:text-pink-800 text-xl md:text-2xl">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="text-blue-400 hover:text-blue-600 text-xl md:text-2xl">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="text-red-600 hover:text-red-800 text-xl md:text-2xl">
+          <i class="fab fa-youtube"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INICIAR SESIÓN -->
+  <section id="login" class="p-4 md:p-6 hidden">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Iniciar Sesión</h2>
+
+    <form id="loginForm" class="bg-white p-4 md:p-6 rounded-xl shadow-md max-w-md mx-auto border-2 border-black rounded-xl md:rounded-2xl">
+      <label class="block mb-2 font-semibold text-sm md:text-base">Correo</label>
+      <input id="login_correo" type="email" class="w-full border-2 border-black p-2 md:p-3 mb-3 md:mb-4 rounded text-sm md:text-base" placeholder="correo@example.com">
+      <label class="block mb-2 font-semibold text-sm md:text-base">Contraseña</label>
+      <input id="login_password" type="password" class="w-full border-2 border-black p-2 md:p-3 mb-3 md:mb-4 rounded text-sm md:text-base" placeholder="********">
+      <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 w-full text-sm md:text-base button-responsive">Iniciar Sesión</button>
+      <p id="loginMsg" class="mt-3 text-sm md:text-base"></p>
+    </form>
+  </section>
+
+  <!-- REGISTRO -->
+  <section id="registro" class="p-4 md:p-6 hidden">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Registro</h2>
+
+    <form id="registerForm" class="bg-white p-4 md:p-6 rounded-xl shadow-md max-w-md mx-auto border-2 border-black rounded-xl md:rounded-2xl">
+      <label class="block mb-2 font-semibold text-sm md:text-base">Nombre</label>
+      <input id="reg_nombre" type="text" class="w-full border-2 border-black p-2 md:p-3 mb-3 md:mb-4 rounded text-sm md:text-base" placeholder="Tu nombre">
+      <label class="block mb-2 font-semibold text-sm md:text-base">Correo</label>
+      <input id="reg_correo" type="email" class="w-full border-2 border-black p-2 md:p-3 mb-3 md:mb-4 rounded text-sm md:text-base" placeholder="correo@example.com">
+      <label class="block mb-2 font-semibold text-sm md:text-base">Contraseña</label>
+      <input id="reg_password" type="password" class="w-full border-2 border-black p-2 md:p-3 mb-3 md:mb-4 rounded text-sm md:text-base" placeholder="********">
+      <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 w-full text-sm md:text-base button-responsive">Registrarse</button>
+      <p id="registerMsg" class="mt-3 text-sm md:text-base"></p>
+    </form>
+  </section>
+
+<script>
+  /* ----------------------------- MENÚ MÓVIL ----------------------------- */
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const closeMenuBtn = document.getElementById('closeMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const menuOverlay = document.getElementById('menuOverlay');
+  const mobileNavLinks = document.querySelectorAll('#mobileMenu .nav-link');
+
+  if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+      menuOverlay.classList.remove('hidden');
+    });
+  }
+
+  if (closeMenuBtn) {
+    closeMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuOverlay.classList.add('hidden');
+    });
+  }
+
+  if (menuOverlay) {
+    menuOverlay.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuOverlay.classList.add('hidden');
+    });
+  }
+
+  // Cerrar menú al hacer clic en enlace
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      menuOverlay.classList.add('hidden');
+    });
+  });
+
+  /* ----------------------------- NAV SECTIONS ----------------------------- */
+  const sections = {
+    inicio: document.getElementById('inicio'),
+    cortes: document.getElementById('cortes'),
+    carrito: document.getElementById('carrito'),
+    pago: document.getElementById('pago'),
+    contacto: document.getElementById('contacto'),
+    login: document.getElementById('login'),
+    registro: document.getElementById('registro')
+  };
+
+  function showSection(id){
+    Object.values(sections).forEach(s => s.classList.add('hidden'));
+    if (sections[id]) {
+      sections[id].classList.remove('hidden');
+    }
+    // Cerrar menú móvil si está abierto
+    if (mobileMenu) {
+      mobileMenu.classList.remove('open');
+      menuOverlay.classList.add('hidden');
+    }
+  }
+
+  document.querySelectorAll('.nav-link').forEach(link=>{
+    link.addEventListener('click', e=>{
+      e.preventDefault();
+      const id = link.getAttribute('href').replace('#','');
+      showSection(id);
+      
+      // Scroll suave al principio en móviles
+      if (window.innerWidth < 768) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  });
+
+  showSection('inicio');
+
+  /* ----------------------------- PRODUCTOS ----------------------------- */
+  let CART = [];
+
+  // Datos fijos para los cortes (sin base de datos)
+  const productosFijos = [
+    { id: 1, nombre: "Corte Cecina de res", precio: 360, imagen: "img/corte1.jpg", descripcion: "Carne de res de las cuartos traseros..." },
+    { id: 2, nombre: "Corte Longaniza", precio: 160, imagen: "img/corte2.jpg", descripcion: "Carne molida de puerco condimentada..." },
+    { id: 3, nombre: "Corte Cecina enchilada", precio: 240, imagen: "img/corte3.jpg", descripcion: "Elaborada con la carne del cuarto trasero..." },
+    { id: 4, nombre: "Corte Gorditos o Gracitas", precio: 120, imagen: "img/corte4.jpg", descripcion: "Corte derivado de la cecina..." }
+  ];
+
+  /* ----------------------------- CARRITO ----------------------------- */
+  function addToCart(product_id, cantidad, precio_unitario){
+    const idx = CART.findIndex(i => i.product_id == product_id);
+    if(idx >= 0){
+      CART[idx].cantidad += cantidad;
+    } else {
+      CART.push({
+        product_id: product_id, 
+        cantidad: cantidad, 
+        precio_unitario: precio_unitario
+      });
+    }
+    renderCart();
+    showNotification('Producto agregado al carrito');
+  }
+
+  function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-3 md:px-4 py-2 rounded shadow-lg z-50 text-sm md:text-base';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
+  }
+
+  function renderCart(){
+    const cartItems = document.getElementById('cartItems');
+    const cartEmpty = document.getElementById('cartEmpty');
+    const cartSummary = document.getElementById('cartSummary');
+    
+    cartItems.innerHTML = '';
+
+    if(CART.length === 0){
+      cartEmpty.style.display = 'block';
+      cartSummary.classList.add('hidden');
+      return;
+    }
+
+    cartEmpty.style.display = 'none';
+    cartSummary.classList.remove('hidden');
+
+    let total = 0;
+
+    CART.forEach((it, index) => {
+      const p = productosFijos.find(prod => prod.id == it.product_id);
+
+      if (!p) return;
+
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'flex flex-col sm:flex-row items-center justify-between p-3 border-b gap-2';
+
+      itemDiv.innerHTML = `
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <img src="/static/${p.imagen}" class="h-12 w-12 object-cover rounded-lg">
+          <div class="flex-1">
+            <div class="font-semibold text-sm md:text-base">${p.nombre}</div>
+            <div class="text-xs md:text-sm">Precio unitario: $${it.precio_unitario}</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
+          <div class="flex items-center gap-1">
+            <button class="decBtn px-2 md:px-3 py-1 border rounded text-sm" data-idx="${index}">-</button>
+            <div class="px-2">${it.cantidad}</div>
+            <button class="incBtn px-2 md:px-3 py-1 border rounded text-sm" data-idx="${index}">+</button>
+          </div>
+          <div class="ml-2 md:ml-4 font-semibold text-sm md:text-base">$${(it.cantidad * it.precio_unitario).toFixed(2)}</div>
+        </div>
+      `;
+
+      cartItems.appendChild(itemDiv);
+      total += it.cantidad * it.precio_unitario;
+    });
+
+    document.getElementById('cartTotal').textContent = total.toFixed(2);
+
+    document.querySelectorAll('.incBtn').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const i = parseInt(b.getAttribute('data-idx'));
+        CART[i].cantidad++;
+        renderCart();
+      });
+    });
+
+    document.querySelectorAll('.decBtn').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const i = parseInt(b.getAttribute('data-idx'));
+        CART[i].cantidad--;
+        if(CART[i].cantidad <= 0) CART.splice(i,1);
+        renderCart();
+      });
+    });
+  }
+
+  // Agregar event listeners a los botones de agregar al carrito
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.addBtn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = parseInt(btn.getAttribute('data-id'));
+        const precio = parseFloat(btn.getAttribute('data-price'));
+        addToCart(id, 1, precio);
+      });
+    });
+  });
+
+  /* ----------------------------- PAGO ----------------------------- */
+  document.getElementById('checkoutBtn')?.addEventListener('click', ()=>{
+    showSection('pago');
+  });
+
+  document.getElementById('backToCart')?.addEventListener('click', ()=>{
+    showSection('carrito');
+  });
+
+  // Cambiar método de pago
+  document.querySelectorAll('input[name="payment"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      const cardPayment = document.getElementById('cardPayment');
+      const oxxoPayment = document.getElementById('oxxoPayment');
+      
+      if (e.target.value === 'oxxo') {
+        cardPayment.classList.add('hidden');
+        oxxoPayment.classList.remove('hidden');
+      } else {
+        cardPayment.classList.remove('hidden');
+        oxxoPayment.classList.add('hidden');
+      }
+    });
+  });
+
+  document.getElementById('confirmPayment')?.addEventListener('click', async ()=>{
+    const total = parseFloat(document.getElementById('cartTotal').textContent);
+    const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+
+    const itemsForAPI = CART.map(item => ({
+      id: item.product_id,
+      cantidad: item.cantidad,
+      precio: item.precio_unitario
+    }));
+
+    const response = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ 
+        items: itemsForAPI, 
+        total: total 
+      })
+    });
+
+    const res = await response.json();
+
+    if(res.success){
+      alert('¡Pago realizado con éxito! Gracias por tu compra.');
+      CART = [];
+      renderCart();
+      showSection('inicio');
+    } else {
+      alert('Error: ' + (res.message || ''));
+    }
+  });
+
+  /* ----------------------------- USUARIO Y SESIÓN ----------------------------- */
+  function updateUserInfo() {
+    const userInfo = document.getElementById('userInfo');
+    const userName = document.getElementById('userName');
+    const mobileUserInfo = document.getElementById('mobileUserInfo');
+    const mobileUserName = document.getElementById('mobileUserName');
+    
+    const user = localStorage.getItem('currentUser');
+    
+    if (user) {
+      const userData = JSON.parse(user);
+      if (userName) userName.textContent = `Hola, ${userData.nombre}`;
+      if (mobileUserName) mobileUserName.textContent = `Hola, ${userData.nombre}`;
+      if (userInfo) userInfo.classList.remove('hidden');
+      if (mobileUserInfo) mobileUserInfo.classList.remove('hidden');
+      
+      // Ocultar login/registro cuando hay sesión activa
+      document.querySelectorAll('a[href="#login"]').forEach(el => el.parentElement.classList.add('hidden'));
+      document.querySelectorAll('a[href="#registro"]').forEach(el => el.parentElement.classList.add('hidden'));
+    } else {
+      if (userInfo) userInfo.classList.add('hidden');
+      if (mobileUserInfo) mobileUserInfo.classList.add('hidden');
+      document.querySelectorAll('a[href="#login"]').forEach(el => el.parentElement.classList.remove('hidden'));
+      document.querySelectorAll('a[href="#registro"]').forEach(el => el.parentElement.classList.remove('hidden'));
+    }
+  }
+
+  document.getElementById('logoutBtn')?.addEventListener('click', () => {
+    localStorage.removeItem('currentUser');
+    updateUserInfo();
+    showSection('inicio');
+    alert('Sesión cerrada correctamente');
+  });
+
+  document.getElementById('mobileLogoutBtn')?.addEventListener('click', () => {
+    localStorage.removeItem('currentUser');
+    updateUserInfo();
+    showSection('inicio');
+    mobileMenu.classList.remove('open');
+    menuOverlay.classList.add('hidden');
+    alert('Sesión cerrada correctamente');
+  });
+
+  /* ----------------------------- INICIAR SESIÓN ----------------------------- */
+  document.getElementById('loginForm')?.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+
+    const correo = document.getElementById('login_correo').value;
+    const password = document.getElementById('login_password').value;
+    const msg = document.getElementById('loginMsg');
+
+    const resp = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json' },
+      body: JSON.stringify({ correo, password })
+    });
+
+    const data = await resp.json();
+
+    if(data.success){
+      msg.textContent = 'Sesión iniciada correctamente.';
+      msg.style.color = 'green';
+      document.getElementById('loginForm').reset();
+      
+      localStorage.setItem('currentUser', JSON.stringify({
+        nombre: data.user?.nombre || correo,
+        correo: correo
+      }));
+      
+      updateUserInfo();
+      
+      setTimeout(() => {
+        showSection('inicio');
+      }, 1500);
+    } else {
+      msg.textContent = data.message || 'Error al iniciar sesión';
+      msg.style.color = 'red';
+    }
+  });
+
+  /* ----------------------------- REGISTRO ----------------------------- */
+  document.getElementById('registerForm')?.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+
+    const nombre = document.getElementById('reg_nombre').value;
+    const correo = document.getElementById('reg_correo').value;
+    const password = document.getElementById('reg_password').value;
+    const msg = document.getElementById('registerMsg');
+
+    const resp = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json' },
+      body: JSON.stringify({ nombre, correo, password })
+    });
+
+    const data = await resp.json();
+
+    if(data.success){
+      msg.textContent = 'Registrado correctamente.';
+      msg.style.color = 'green';
+      document.getElementById('registerForm').reset();
+      
+      setTimeout(() => {
+        showSection('login');
+      }, 1500);
+    } else {
+      msg.textContent = data.message || 'Error';
+      msg.style.color = 'red';
+    }
+  });
+
+  // Inicializar información del usuario al cargar la página
+  updateUserInfo();
+
+  // Ajustar diseño al cambiar tamaño de ventana
+  window.addEventListener('resize', function() {
+    if (window.innerWidth >= 768) {
+      mobileMenu.classList.remove('open');
+      menuOverlay.classList.add('hidden');
+    }
+  });
+</script>
+</body>
+</html>

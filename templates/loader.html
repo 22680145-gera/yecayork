@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cargando — Yecayork</title>
+<style>
+  /* pantalla completa */
+  html,body {
+    height:100%;
+    margin:0;
+    background:#ffffff;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  .preloader-wrap {
+    position:fixed;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#ffffff;
+    z-index:99999;
+    transition: opacity .7s ease, visibility .7s ease;
+  }
+  .preloader-wrap.hidden {
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+  }
+
+  /* mantener el SVG grande y centrado */
+  .toro-svg {
+    width: min(60vmin, 700px);
+    height: auto;
+    display:block;
+  }
+
+  /* --- trazo (outline) --- */
+  .outline {
+    fill: none;
+    stroke: #111;
+    stroke-width: 10;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    /* parámetros para animar el trazo */
+    stroke-dasharray: 4000;
+    stroke-dashoffset: 4000;
+    animation: draw 2.6s cubic-bezier(.2,.9,.2,1) forwards;
+  }
+
+  @keyframes draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* rect relleno (se mostrará a través de la máscara de la silueta) */
+  .fill-rect {
+    transform: translateY(100%);
+    transform-origin: 50% 50%;
+    animation: fillUp 1.9s ease forwards;
+    animation-delay: 2.6s; /* empieza cuando termina el trazo */
+  }
+
+  @keyframes fillUp {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0%); }
+  }
+
+  /* opcional: pequeña transición al ocultar preloader */
+  .fade-out {
+    animation: fadeOut .6s ease .1s forwards;
+    animation-delay: 4.8s;
+  }
+  @keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; transform: scale(.995); }
+  }
+
+  /* dejar el contenedor de página oculto hasta que termine el loader,
+     si vas a insertar loader como página separada esto no es necesario.
+     Si lo incluyes en index, puedes controlar visibilidad con JS. */
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader" class="preloader-wrap" aria-hidden="false">
+  <!-- SVG con máscara: el rectángulo negro se recorta por la silueta -->
+  <svg class="toro-svg" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cargando">
+    <defs>
+      <!-- la silueta (path) sirve como máscara; tiene stroke para mostrar el trazo -->
+      <!-- PATH creado manualmente para parecerse a la cabeza de toro de la imagen -->
+      <path id="toro-silhouette" d="
+        M100 230
+        C60 160, 90 90, 210 70
+        C260 60, 320 60, 370 70
+        C490 90, 520 160, 480 230
+        C540 260, 580 300, 600 360
+        C620 420, 610 470, 570 520
+        C530 580, 460 630, 400 640
+        C340 650, 260 640, 220 580
+        C180 520, 160 440, 200 360
+        C180 320, 200 280, 260 260
+        C240 220, 220 210, 200 200
+        C160 180, 120 200, 100 230
+        Z
+        M270 300 C300 285, 310 270, 330 270
+        M470 300 C440 285, 430 270, 410 270
+        M330 420 C360 440, 440 440, 470 420
+      " />
+      <!-- máscara: el interior blanco de la silueta permitirá ver el rect negro -->
+      <mask id="toro-mask" maskUnits="objectBoundingBox" >
+        <!-- fondo negro oculta; blanco permite mostrar -->
+        <rect x="0" y="0" width="100%" height="100%" fill="black" />
+        <use href="#toro-silhouette" fill="white" stroke="white" stroke-width="1"/>
+      </mask>
+    </defs>
+
+    <!-- 1) rectángulo negro que sube (relleno) - su visibilidad se restringe por la máscara -->
+    <rect class="fill-rect" x="0" y="0" width="100%" height="100%" fill="#111" mask="url(#toro-mask)"></rect>
+
+    <!-- 2) la silueta dibujada encima con stroke; la animación de stroke-dasharray la "dibuja" -->
+    <use href="#toro-silhouette" class="outline"></use>
+  </svg>
+</div>
+
+<script>
+  // timing: 2.6s para el trazo + 1.9s para el relleno = 4.5s total
+  // añadimos un pequeño margen, luego ocultamos y redirigimos
+
+  const PRELOAD_TOTAL_MS = 4800; // tiempo total antes de redirigir (ajusta si quieres)
+
+  // después del relleno, añadimos clase de fade y luego redirigimos
+  setTimeout(() => {
+    const pre = document.getElementById('preloader');
+    pre.classList.add('fade-out');
+  }, PRELOAD_TOTAL_MS - 800); // empezar a desvanecer un poco antes de redirigir
+
+  setTimeout(() => {
+    // Si quieres reemplazar por render_template('index.html') en flask, en vez de esta
+    // redirección asegura que el loader llame al index principal:
+    window.location.href = "index.html";
+  }, PRELOAD_TOTAL_MS);
+</script>
+
+</body>
+</html>
