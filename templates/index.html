@@ -12,8 +12,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // Reemplaza con tus valores reales de Supabase (Project URL y anon public key desde Settings → API)
-    const SUPABASE_URL = 'https://licmwvbpjnzmkxjevxsj.supabase.co'; // TU URL
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxpY213dmJwam56bWt4amV2eHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUwNjM5NTIsImV4cCI6MjA4MDYzOTk1Mn0.nzKRXLDD8HG_asPvUzga8J8zcZx9ikptoB32Lbg1CBY'; // TU CLAVE (anon)
+    const SUPABASE_URL = 'https://licmwvbpjnzmkxjevxsj.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxpY213dmJwam56bWt4amV2eHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUwNjM5NTIsImV4cCI6MjA4MDYzOTk1Mn0.nzKRXLDD8HG_asPvUzga8J8zcZx9ikptoB32Lbg1CBY';
     
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     console.log('✅ Supabase inicializado correctamente');
@@ -110,7 +110,6 @@
 
   <!-- INICIO -->
   <section id="inicio" class="p-4 md:p-6">
-
     <!-- BANNER PRINCIPAL -->
     <div class="w-full h-48 md:h-72 lg:h-96 rounded-2xl md:rounded-3xl overflow-hidden mb-6 md:mb-8">
       <img src="/static/img/bannerprincipal.jpg" class="w-full h-full object-cover">
@@ -128,7 +127,6 @@
 
     <!-- 4 IMÁGENES CON DESCRIPCIÓN -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mt-8 md:mt-16 px-2">
-
       <div class="flex flex-col items-center product-card">
         <div class="w-full h-48 md:h-56 lg:h-64 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-3 md:mb-4">
           <img src="/static/img/corte1.jpg" class="w-full h-full object-cover">
@@ -176,12 +174,248 @@
           </p>
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- resto del markup (secciones cortes, carrito, pago, contacto, login, registro) -->
-  <!-- ...existing code... -->
+  <!-- CORTES (SECCIÓN QUE FALTABA) -->
+  <section id="cortes" class="p-4 md:p-6 hidden">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-center heading-responsive">Cortes de Carne</h2>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 lg:gap-6 max-w-6xl mx-auto">
+      
+      <!-- Producto 1 -->
+      <div class="bg-white border-2 border-black p-3 md:p-4 flex flex-col items-center rounded-xl md:rounded-2xl product-card">
+        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3">
+          <img src="/static/img/corte1.jpg" class="w-full h-full object-cover">
+        </div>
+        <h3 class="font-bold text-base md:text-lg lg:text-xl mt-1 md:mt-2 text-center">Corte Cecina de res</h3>
+        <p class="text-xs md:text-sm text-gray-600 text-center mb-2 md:mb-3 text-responsive">
+          Carne de res de las cuartos traseros, que se filetea, sala, se seca al sol y se unta con manteca de cerdo.
+        </p>
+        <div class="mt-auto w-full flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div class="text-lg md:text-xl lg:text-2xl font-bold text-orange-700">$360</div>
+          <button class="addBtn bg-orange-600 hover:bg-orange-700 text-white px-3 md:px-4 py-1 md:py-2 rounded text-sm md:text-base button-responsive w-full sm:w-auto" 
+            data-id="1" data-price="360">Agregar 1 kg</button>
+        </div>
+      </div>
+
+      <!-- Producto 2 -->
+      <div class="bg-white border-2 border-black p-3 md:p-4 flex flex-col items-center rounded-xl md:rounded-2xl product-card">
+        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3">
+          <img src="/static/img/corte2.jpg" class="w-full h-full object-cover">
+        </div>
+        <h3 class="font-bold text-base md:text-lg lg:text-xl mt-1 md:mt-2 text-center">Corte Longaniza</h3>
+        <p class="text-xs md:text-sm text-gray-600 text-center mb-2 md:mb-3 text-responsive">
+          Carne molida de puerco condimentada con pasas, almendras. Utilizando las tripas del cerdo para embutir.
+        </p>
+        <div class="mt-auto w-full flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div class="text-lg md:text-xl lg:text-2xl font-bold text-orange-700">$160</div>
+          <button class="addBtn bg-orange-600 hover:bg-orange-700 text-white px-3 md:px-4 py-1 md:py-2 rounded text-sm md:text-base button-responsive w-full sm:w-auto" 
+            data-id="2" data-price="160">Agregar 1 kg</button>
+        </div>
+      </div>
+
+      <!-- Producto 3 -->
+      <div class="bg-white border-2 border-black p-3 md:p-4 flex flex-col items-center rounded-xl md:rounded-2xl product-card">
+        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3">
+          <img src="/static/img/corte3.jpg" class="w-full h-full object-cover">
+        </div>
+        <h3 class="font-bold text-base md:text-lg lg:text-xl mt-1 md:mt-2 text-center">Corte Cecina enchilada</h3>
+        <p class="text-xs md:text-sm text-gray-600 text-center mb-2 md:mb-3 text-responsive">
+          Elaborada con la carne del cuarto trasero del puerco, enchilado con receta de la casa.
+        </p>
+        <div class="mt-auto w-full flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div class="text-lg md:text-xl lg:text-2xl font-bold text-orange-700">$240</div>
+          <button class="addBtn bg-orange-600 hover:bg-orange-700 text-white px-3 md:px-4 py-1 md:py-2 rounded text-sm md:text-base button-responsive w-full sm:w-auto" 
+            data-id="3" data-price="240">Agregar 1 kg</button>
+        </div>
+      </div>
+
+      <!-- Producto 4 -->
+      <div class="bg-white border-2 border-black p-3 md:p-4 flex flex-col items-center rounded-xl md:rounded-2xl product-card">
+        <div class="w-full h-40 md:h-48 lg:h-52 overflow-hidden rounded-xl md:rounded-2xl mb-3">
+          <img src="/static/img/corte4.jpg" class="w-full h-full object-cover">
+        </div>
+        <h3 class="font-bold text-base md:text-lg lg:text-xl mt-1 md:mt-2 text-center">Corte Gorditos o Gracitas</h3>
+        <p class="text-xs md:text-sm text-gray-600 text-center mb-2 md:mb-3 text-responsive">
+          Corte derivado de la cecina, quitándose como exceso, la grasa.
+        </p>
+        <div class="mt-auto w-full flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div class="text-lg md:text-xl lg:text-2xl font-bold text-orange-700">$120</div>
+          <button class="addBtn bg-orange-600 hover:bg-orange-700 text-white px-3 md:px-4 py-1 md:py-2 rounded text-sm md:text-base button-responsive w-full sm:w-auto" 
+            data-id="4" data-price="120">Agregar 1 kg</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARRITO (SECCIÓN QUE FALTABA) -->
+  <section id="carrito" class="p-4 md:p-6 hidden">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Carrito</h2>
+    <div id="cartContainer" class="space-y-4">
+      <p id="cartEmpty" class="text-center py-8">No hay productos en el carrito.</p>
+      <div id="cartItems" class="space-y-3"></div>
+      <div id="cartSummary" class="mt-4 p-4 bg-white border-2 border-black max-w-md mx-auto hidden rounded-xl md:rounded-2xl">
+        <p class="text-lg md:text-xl font-bold text-center">Total: $<span id="cartTotal">0.00</span> MXN</p>
+        <button id="checkoutBtn" class="mt-3 bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 w-full button-responsive">Proceder al Pago</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGO (SECCIÓN QUE FALTABA) -->
+  <section id="pago" class="p-4 md:p-6 hidden">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Proceso de Pago</h2>
+    <div class="bg-white p-4 md:p-6 rounded-xl shadow-md max-w-2xl mx-auto border-2 border-black">
+      
+      <div class="mb-4 md:mb-6">
+        <h3 class="text-lg md:text-xl font-bold mb-3">Forma de Pago</h3>
+        <div class="flex flex-col sm:flex-row gap-3 md:gap-4 mb-4">
+          <div class="flex items-center">
+            <input type="radio" id="visa" name="payment" value="visa" class="mr-2" checked>
+            <label for="visa" class="flex items-center text-sm md:text-base">
+              <span class="mr-2">VISA</span>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" class="h-5 md:h-6">
+            </label>
+          </div>
+          <div class="flex items-center">
+            <input type="radio" id="mastercard" name="payment" value="mastercard" class="mr-2">
+            <label for="mastercard" class="flex items-center text-sm md:text-base">
+              <span class="mr-2">MasterCard</span>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-5 md:h-6">
+            </label>
+          </div>
+          <div class="flex items-center">
+            <input type="radio" id="oxxo" name="payment" value="oxxo" class="mr-2">
+            <label for="oxxo" class="flex items-center text-sm md:text-base">
+              <span class="mr-2">OXXO</span>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/OXXO_Logo.svg" class="h-5 md:h-6">
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div id="cardPayment" class="mb-4 md:mb-6">
+        <h3 class="text-lg md:text-xl font-bold mb-3">Método de pago</h3>
+        <div class="space-y-3 md:space-y-4">
+          <div>
+            <label class="block mb-2 font-semibold text-sm md:text-base">Número de la tarjeta</label>
+            <input type="text" id="cardNumber" class="w-full border-2 border-black p-2 md:p-3 rounded text-sm md:text-base" placeholder="1234 5678 9012 3456" maxlength="19">
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+            <div>
+              <label class="block mb-2 font-semibold text-sm md:text-base">Fecha de vencimiento</label>
+              <div class="flex gap-2">
+                <select id="expMonth" class="w-full border-2 border-black p-2 rounded text-sm md:text-base">
+                  <option value="">Mes</option>
+                  <option value="01">01 - Enero</option>
+                  <option value="02">02 - Febrero</option>
+                  <option value="03">03 - Marzo</option>
+                  <option value="04">04 - Abril</option>
+                  <option value="05">05 - Mayo</option>
+                  <option value="06">06 - Junio</option>
+                  <option value="07">07 - Julio</option>
+                  <option value="08">08 - Agosto</option>
+                  <option value="09">09 - Septiembre</option>
+                  <option value="10">10 - Octubre</option>
+                  <option value="11">11 - Noviembre</option>
+                  <option value="12">12 - Diciembre</option>
+                </select>
+                <select id="expYear" class="w-full border-2 border-black p-2 rounded text-sm md:text-base">
+                  <option value="">Año</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block mb-2 font-semibold text-sm md:text-base">CVV</label>
+              <input type="text" id="cvv" class="w-full border-2 border-black p-2 rounded text-sm md:text-base" placeholder="123" maxlength="3">
+            </div>
+          </div>
+          <div>
+            <label class="block mb-2 font-semibold text-sm md:text-base">Nombre en la tarjeta</label>
+            <input type="text" id="cardName" class="w-full border-2 border-black p-2 rounded text-sm md:text-base" placeholder="JUAN PEREZ">
+          </div>
+        </div>
+      </div>
+
+      <div id="oxxoPayment" class="mb-4 md:mb-6 hidden">
+        <h3 class="text-lg md:text-xl font-bold mb-3">Pago en OXXO</h3>
+        <p class="mb-4 text-sm md:text-base">Se generará un código de barras para que realices el pago en cualquier tienda OXXO.</p>
+        <div class="bg-gray-100 p-3 md:p-4 text-center border-2 border-dashed border-gray-400 rounded">
+          <p class="font-bold text-sm md:text-base">Código de barras:</p>
+          <p class="text-lg md:text-2xl font-mono">1234 5678 9012 3456 7890</p>
+          <p class="text-xs md:text-sm text-gray-600 mt-2">Válido por 72 horas</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 md:gap-4">
+        <button id="backToCart" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 text-sm md:text-base button-responsive">Volver al Carrito</button>
+        <button id="confirmPayment" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 text-sm md:text-base button-responsive">Confirmar Pago</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO (SECCIÓN QUE FALTABA) -->
+  <section id="contacto" class="p-4 md:p-6 hidden">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Contacto</h2>
+    
+    <div class="w-full h-48 md:h-64 lg:h-80 rounded-xl md:rounded-2xl lg:rounded-3xl overflow-hidden mb-6 md:mb-8">
+      <img src="/static/img/iglesia.jpg" class="w-full h-full object-cover">
+    </div>
+    
+    <div class="max-w-4xl mx-auto px-2">
+      <p class="mt-4 text-base md:text-lg text-center mb-6 md:mb-8 text-responsive">Dirección de ejemplo - Tel: 7352152870</p>
+      
+      <div class="flex justify-center md:justify-end gap-4 mt-6 md:mt-8">
+        <a href="#" class="text-blue-600 hover:text-blue-800 text-xl md:text-2xl">
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a href="#" class="text-pink-600 hover:text-pink-800 text-xl md:text-2xl">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="text-blue-400 hover:text-blue-600 text-xl md:text-2xl">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="text-red-600 hover:text-red-800 text-xl md:text-2xl">
+          <i class="fab fa-youtube"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INICIAR SESIÓN (SECCIÓN QUE FALTABA) -->
+  <section id="login" class="p-4 md:p-6 hidden">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Iniciar Sesión</h2>
+
+    <form id="loginForm" class="bg-white p-4 md:p-6 rounded-xl shadow-md max-w-md mx-auto border-2 border-black rounded-xl md:rounded-2xl">
+      <label class="block mb-2 font-semibold text-sm md:text-base">Correo</label>
+      <input id="login_correo" type="email" class="w-full border-2 border-black p-2 md:p-3 mb-3 md:mb-4 rounded text-sm md:text-base" placeholder="correo@example.com">
+      <label class="block mb-2 font-semibold text-sm md:text-base">Contraseña</label>
+      <input id="login_password" type="password" class="w-full border-2 border-black p-2 md:p-3 mb-3 md:mb-4 rounded text-sm md:text-base" placeholder="********">
+      <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 w-full text-sm md:text-base button-responsive">Iniciar Sesión</button>
+      <p id="loginMsg" class="mt-3 text-sm md:text-base"></p>
+    </form>
+  </section>
+
+  <!-- REGISTRO (SECCIÓN QUE FALTABA) -->
+  <section id="registro" class="p-4 md:p-6 hidden">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4 heading-responsive">Registro</h2>
+
+    <form id="registerForm" class="bg-white p-4 md:p-6 rounded-xl shadow-md max-w-md mx-auto border-2 border-black rounded-xl md:rounded-2xl">
+      <label class="block mb-2 font-semibold text-sm md:text-base">Nombre</label>
+      <input id="reg_nombre" type="text" class="w-full border-2 border-black p-2 md:p-3 mb-3 md:mb-4 rounded text-sm md:text-base" placeholder="Tu nombre">
+      <label class="block mb-2 font-semibold text-sm md:text-base">Correo</label>
+      <input id="reg_correo" type="email" class="w-full border-2 border-black p-2 md:p-3 mb-3 md:mb-4 rounded text-sm md:text-base" placeholder="correo@example.com">
+      <label class="block mb-2 font-semibold text-sm md:text-base">Contraseña</label>
+      <input id="reg_password" type="password" class="w-full border-2 border-black p-2 md:p-3 mb-3 md:mb-4 rounded text-sm md:text-base" placeholder="********">
+      <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 w-full text-sm md:text-base button-responsive">Registrarse</button>
+      <p id="registerMsg" class="mt-3 text-sm md:text-base"></p>
+    </form>
+  </section>
 
 <script>
   /* ----------------------------- MENÚ MÓVIL ----------------------------- */
@@ -378,6 +612,86 @@
     checkUserSession();
   });
 
+  /* ----------------------------- PAGO ----------------------------- */
+  document.getElementById('checkoutBtn')?.addEventListener('click', ()=>{
+    if (CART.length === 0) {
+      alert('Tu carrito está vacío');
+      return;
+    }
+    showSection('pago');
+  });
+
+  document.getElementById('backToCart')?.addEventListener('click', ()=>{
+    showSection('carrito');
+  });
+
+  // Cambiar método de pago
+  document.querySelectorAll('input[name="payment"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      const cardPayment = document.getElementById('cardPayment');
+      const oxxoPayment = document.getElementById('oxxoPayment');
+      
+      if (e.target.value === 'oxxo') {
+        cardPayment.classList.add('hidden');
+        oxxoPayment.classList.remove('hidden');
+      } else {
+        cardPayment.classList.remove('hidden');
+        oxxoPayment.classList.add('hidden');
+      }
+    });
+  });
+
+  document.getElementById('confirmPayment')?.addEventListener('click', async ()=>{
+    const total = parseFloat(document.getElementById('cartTotal').textContent);
+    const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+    
+    // Validar campos si es tarjeta
+    if (paymentMethod !== 'oxxo') {
+      const cardNumber = document.getElementById('cardNumber').value;
+      const expMonth = document.getElementById('expMonth').value;
+      const expYear = document.getElementById('expYear').value;
+      const cvv = document.getElementById('cvv').value;
+      const cardName = document.getElementById('cardName').value;
+      
+      if (!cardNumber || !expMonth || !expYear || !cvv || !cardName) {
+        alert('Por favor completa todos los campos de la tarjeta');
+        return;
+      }
+    }
+    
+    // Simular pago exitoso
+    alert('¡Pago realizado con éxito! Gracias por tu compra.');
+    
+    // Guardar pedido en Supabase si el usuario está logueado
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (user) {
+        const { error } = await supabase
+          .from('pedidos')
+          .insert({
+            user_id: user.id,
+            items: CART,
+            total: total,
+            payment_method: paymentMethod,
+            status: 'completado'
+          });
+          
+        if (error) {
+          console.error('Error al guardar pedido:', error);
+        }
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    
+    // Limpiar carrito
+    CART = [];
+    renderCart();
+    showSection('inicio');
+    showNotification('¡Pedido realizado con éxito!');
+  });
+
   /* ----------------------------- SESIÓN DE USUARIO (Supabase) ----------------------------- */
   async function checkUserSession() {
     try {
@@ -551,27 +865,6 @@
       console.error('Error:', error);
     }
   });
-
-  /* ----------------------------- PAGO (checkout) ----------------------------- */
-  document.getElementById('checkoutBtn')?.addEventListener('click', async ()=>{
-    const sessionCheck = await checkUserSession();
-    
-    if (!sessionCheck.logged_in) {
-      alert('Debes iniciar sesión para proceder al pago');
-      showSection('login');
-      return;
-    }
-    
-    if (CART.length === 0) {
-      alert('Tu carrito está vacío');
-      return;
-    }
-    
-    showSection('pago');
-  });
-
-  // resto de la lógica de pago y utilidades
-  // ...existing code...
 
   // Ajustar diseño al cambiar tamaño de ventana
   window.addEventListener('resize', function() {
